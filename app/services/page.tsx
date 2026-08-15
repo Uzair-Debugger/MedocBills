@@ -1,11 +1,13 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
-import { Helmet } from 'react-helmet-async';
-import type { CounterProps } from '../constants/types';
-import { servicesData, statsData, doctorsData, faqs } from '../constants/data';
-import { Container, Typography, CustomButton } from '../components/layout';
-import { IconFromData } from '../helper/IconFromData';
+﻿'use client';
 
-// ─── Counter Component ──────────────────────
+import React, { useEffect, useState, useRef, useCallback } from 'react';
+import type { CounterProps } from '../../src/constants/types';
+import { servicesData, statsData, doctorsData, faqs } from '../../src/constants/data';
+import { Container, Typography, CustomButton } from '../../src/components/layout';
+import { IconFromData } from '../../src/helper/IconFromData';
+
+
+// â”€â”€â”€ Counter Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const Counter = ({ value, duration = 2000, suffix = '' }: CounterProps) => {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLDivElement | null>(null);
@@ -36,7 +38,7 @@ const Counter = ({ value, duration = 2000, suffix = '' }: CounterProps) => {
   );
 };
 
-// ─── Service Card ──────────────────────────
+// â”€â”€â”€ Service Card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 interface ServiceCardProps {
   title: string;
   description: string;
@@ -70,7 +72,7 @@ const ServiceCard = ({ title, description, index, isVisible }: ServiceCardProps)
   </article>
 );
 
-// ─── Stat Card ─────────────────────────────
+// â”€â”€â”€ Stat Card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 interface StatCardProps {
   iconName: string;
   value: number;
@@ -91,7 +93,7 @@ const StatCard = ({ iconName, value, suffix, label }: StatCardProps) => (
   </div>
 );
 
-// ─── Doctor Card ───────────────────────────
+// â”€â”€â”€ Doctor Card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 interface DoctorCardProps {
   doctor: {
     name: string;
@@ -141,7 +143,7 @@ const DoctorCard = ({ doctor }: DoctorCardProps) => (
   </article>
 );
 
-// ─── Doctors Slider ────────────────────────
+// â”€â”€â”€ Doctors Slider â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const DoctorsSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
@@ -243,7 +245,7 @@ const DoctorsSlider = () => {
   );
 };
 
-// ─── FAQ Item ──────────────────────────────
+// â”€â”€â”€ FAQ Item â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 interface FAQItemProps {
   faq: { question: string; answer: string };
   isOpen: boolean;
@@ -276,7 +278,7 @@ const FAQItem = ({ faq, isOpen, onClick }: FAQItemProps) => (
   </div>
 );
 
-// ─── Services Page ─────────────────────────
+// â”€â”€â”€ Services Page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const Services = () => {
   const servicesRef = useRef<HTMLDivElement | null>(null);
   const [isServicesVisible, setIsServicesVisible] = useState(false);
@@ -320,28 +322,7 @@ const Services = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Medical Billing Services | MedocBills Healthcare Revenue Solutions</title>
-        <meta name="description" content="Explore MedocBills' comprehensive medical billing, credentialing, and revenue cycle management services. Optimize your healthcare practice's financial performance." />
-        <meta name="keywords" content="medical billing services, healthcare revenue cycle management, medical credentialing, practice billing audit" />
-        <link rel="canonical" href="https://www.medocbills.com/services" />
-        
-        {/* Open Graph tags */}
-        <meta property="og:title" content="Medical Billing Services | MedocBills" />
-        <meta property="og:description" content="Comprehensive healthcare billing solutions designed to optimize your revenue cycle" />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.medocbills.com/services" />
-        
-        {/* Twitter Card tags */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Medical Billing Services | MedocBills" />
-        <meta name="twitter:description" content="Comprehensive healthcare billing solutions designed to optimize your revenue cycle" />
-        
-        {/* FAQ Schema */}
-        <script type="application/ld+json">
-          {JSON.stringify(faqSchema)}
-        </script>
-      </Helmet>
+      
 
       {/* Services Section */}
       <section 
@@ -441,3 +422,5 @@ const Services = () => {
 };
 
 export default Services;
+
+

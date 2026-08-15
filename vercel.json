@@ -1,9 +1,0 @@
-{
-  "buildCommand": "npm install --force && npm run build",
-  "outputDirectory": "dist",
-  "framework": "vite",
-  "installCommand": "npm install --force",
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/" }
-  ]
-}

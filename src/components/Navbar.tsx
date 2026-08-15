@@ -1,13 +1,18 @@
+﻿'use client';
+
+import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
 import Logo from '../assets/logo.webp';
 import { navItems } from '../constants/data';
-import { Link, NavLink } from 'react-router-dom';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { CustomButton } from './layout/CustomButton';
 import { Icon } from '../utils/lazy-icons';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
 
   // Close mobile menu on outside click
   useEffect(() => {
@@ -51,15 +56,16 @@ const Navbar = () => {
 
       {/* Main navigation */}
       <nav aria-label="Main navigation" className="flex px-3 items-center justify-between bg-white shadow-sm relative">
-        <Link to="/" className="flex items-center p-2 text-xl">
-          <img 
+        <Link href="/" className="flex items-center p-2 text-xl">
+          <Image
             src={Logo}
             alt="MedocBills Logo"
             className="h-12 w-auto"
             loading="eager"
             fetchPriority="high"
-            width="182"
-            height="48"
+            width={182}
+            height={48}
+            priority
           />
         </Link>
 
@@ -68,19 +74,17 @@ const Navbar = () => {
           <ul className="flex gap-5">
             {navItems.map((item) => (
               <li key={item.path}>
-                <NavLink
-                  to={item.path}
-                  className={({ isActive }) =>
-                    `font-light transition-colors duration-300 hover:text-primary ${isActive ? 'text-primary' : ''}`
-                  }
+                <Link
+                  href={item.path}
+                  className={`font-light transition-colors duration-300 hover:text-primary ${pathname === item.path ? 'text-primary' : ''}`}
                 >
                   {item.label}
-                </NavLink>
+                </Link>
               </li>
             ))}
           </ul>
 
-          <Link to="/consultation">
+          <Link href="/contactus">
             <CustomButton variant="primary" className="flex items-center gap-2 px-4 py-2">
               Free Consultation <Icon name="ArrowRight" />
             </CustomButton>
@@ -110,20 +114,18 @@ const Navbar = () => {
           <ul className="flex flex-col p-4 gap-4">
             {navItems.map((item) => (
               <li key={item.path}>
-                <NavLink
-                  to={item.path}
+                <Link
+                  href={item.path}
                   onClick={() => setMenuOpen(false)}
-                  className={({ isActive }) =>
-                    `font-light hover:text-primary ${isActive ? 'text-primary' : ''}`
-                  }
+                  className={`font-light hover:text-primary ${pathname === item.path ? 'text-primary' : ''}`}
                 >
                   {item.label}
-                </NavLink>
+                </Link>
               </li>
             ))}
           </ul>
 
-          <Link to="/consultation">
+          <Link href="/contactus">
             <CustomButton variant="primary" className="w-full flex justify-center items-center gap-2 px-4 py-2">
               Free Consultation <Icon name="ArrowRight" />
             </CustomButton>
@@ -135,3 +137,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

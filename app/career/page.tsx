@@ -1,14 +1,16 @@
+﻿'use client';
+
 import React, { useState, useMemo, useCallback } from 'react';
-import { Helmet } from 'react-helmet-async';
-import { jobs } from '../constants/data';
-import { Container, Typography } from '../components/layout';
-import { jobPostingSchema } from '../constants/data';
-import { IconFromData } from '../helper/IconFromData';
+import { jobs } from '../../src/constants/data';
+import { Container, Typography } from '../../src/components/layout';
+import { jobPostingSchema } from '../../src/constants/data';
+import { IconFromData } from '../../src/helper/IconFromData';
+
 
 export default function CareerPage() {
   const [searchTerm, setSearchTerm] = useState('');
 
-  // ✅ memoized filtering (performance)
+  // âœ… memoized filtering (performance)
   const filteredJobs = useMemo(() => {
     return jobs.filter(job =>
       job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -23,34 +25,7 @@ export default function CareerPage() {
 
   return (
     <>
-      <Helmet>
-        <title>Careers at MedocBills | Join Our Healthcare Billing Team</title>
-        <meta 
-          name="description" 
-          content="Explore career opportunities at MedocBills. Join a leading healthcare billing and RCM company. Find your dream job in medical billing, credentialing, and revenue cycle management." 
-        />
-        <meta 
-          name="keywords" 
-          content="medical billing jobs, healthcare careers, RCM jobs, billing specialist positions, healthcare revenue cycle careers" 
-        />
-        <link rel="canonical" href="https://www.medocbills.com/careers" />
-        
-        {/* Open Graph tags */}
-        <meta property="og:title" content="Careers at MedocBills | Join Our Healthcare Billing Team" />
-        <meta property="og:description" content="Invest in your career, grow with tech's top talent. Explore exciting opportunities in medical billing and revenue cycle management." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.medocbills.com/careers" />
-        
-        {/* Twitter Card tags */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Careers at MedocBills" />
-        <meta name="twitter:description" content="Join our team of healthcare billing experts" />
-        
-        {/* Job Posting Schema */}
-        <script type="application/ld+json">
-          {JSON.stringify(jobPostingSchema)}
-        </script>
-      </Helmet>
+      
 
       <section className="min-h-screen bg-gray-50">
         {/* Hero Section */}
@@ -221,7 +196,7 @@ export default function CareerPage() {
                       weight="semibold"
                       className="text-primary group-hover:text-white transition-colors"
                     >
-                      Apply Now →
+                      Apply Now â†’
                     </Typography>
                   </div>
                 </article>
@@ -293,3 +268,5 @@ export default function CareerPage() {
     </>
   );
 }
+
+

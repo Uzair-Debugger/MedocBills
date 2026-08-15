@@ -1,42 +1,17 @@
+﻿'use client';
+
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
-import { organizationSchema, pillars, stats, solutions } from '../constants/data';
-import { AnimatedSection } from '../components/Animation';
-import { Container, Typography, CustomButton } from '../components/layout';
-import { IconFromData } from '../helper/IconFromData';
+import { organizationSchema, pillars, stats, solutions } from '../../src/constants/data';
+import { AnimatedSection } from '../../src/components/Animation';
+import { Container, Typography, CustomButton } from '../../src/components/layout';
+import { IconFromData } from '../../src/helper/IconFromData';
+
 
 export default function AboutUs() {
 
   return (
     <>
-      <Helmet>
-        <title>About MEDOCBILLS LLC | Healthcare BPO & RCM Experts</title>
-        <meta 
-          name="description" 
-          content="Learn about MEDOCBILLS LLC - premier provider of Business Process Outsourcing (BPO), healthcare revenue cycle management (RCM), and digital marketing services. Founded in 2025, we're your partner in business growth." 
-        />
-        <meta 
-          name="keywords" 
-          content="about medical billing company, healthcare BPO services, revenue cycle management experts, medical billing solutions, healthcare outsourcing" 
-        />
-        <link rel="canonical" href="https://www.medocbills.com/about" />
-        
-        {/* Open Graph tags */}
-        <meta property="og:title" content="About MEDOCBILLS LLC | Healthcare BPO & RCM Experts" />
-        <meta property="og:description" content="Premier provider of comprehensive business solutions specializing in BPO, healthcare RCM, and digital marketing services." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.medocbills.com/about" />
-        
-        {/* Twitter Card tags */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="About MEDOCBILLS LLC | Healthcare BPO & RCM Experts" />
-        <meta name="twitter:description" content="Your partner in business growth since 2025" />
-        
-        {/* Organization Schema */}
-        <script type="application/ld+json">
-          {JSON.stringify(organizationSchema)}
-        </script>
-      </Helmet>
+      
 
       <main className="min-h-screen bg-white overflow-x-hidden">
         {/* Hero Section */}
@@ -57,7 +32,7 @@ export default function AboutUs() {
               </Typography>
               <Typography as="p" size="sm" className="leading-relaxed text-white/90">
                 MEDOCBILLS LLC is a premier provider of comprehensive business solutions, specializing in Business Process Outsourcing (BPO), expert healthcare revenue cycle management (RCM), and results-driven digital marketing services.
-                Established in 2025, MEDOCBILLS LLC was founded on the principle of helping businesses—especially in the complex healthcare sector—to not just survive, but grow and thrive in the digital age. Our dedicated team of experienced and passionate professionals is committed to delivering the highest level of service and support, ensuring our clients overcome operational challenges and achieve their strategic goals.
+                Established in 2025, MEDOCBILLS LLC was founded on the principle of helping businessesâ€”especially in the complex healthcare sectorâ€”to not just survive, but grow and thrive in the digital age. Our dedicated team of experienced and passionate professionals is committed to delivering the highest level of service and support, ensuring our clients overcome operational challenges and achieve their strategic goals.
               </Typography>
             </AnimatedSection>
           </Container>
@@ -81,10 +56,10 @@ export default function AboutUs() {
                   </Typography>
                   <Typography as="p" size="sm" className="text-gray-600 leading-relaxed mb-4">
                     <strong className="font-semibold">A Message from Our Founder & CEO!</strong><br />
-                    At MedocBills LLC, we firmly believe that every organization holds immense potential for success. That's why we are dedicated to providing the highest quality outsourced business services, backed by a team of skilled and passionate experts. We specialize in solutions ranging from cutting-edge medical billing and RCM to impactful digital marketing and branding. Our core values—Innovation, Efficiency, and Customer Satisfaction—guide everything we do. We are proud that our clients trust us to manage their critical, non-core tasks, enabling them to focus on their core competencies and patient care. Our ultimate goal is to reduce your workload and deliver outstanding outcomes that consistently exceed your expectations.
+                    At MedocBills LLC, we firmly believe that every organization holds immense potential for success. That's why we are dedicated to providing the highest quality outsourced business services, backed by a team of skilled and passionate experts. We specialize in solutions ranging from cutting-edge medical billing and RCM to impactful digital marketing and branding. Our core valuesâ€”Innovation, Efficiency, and Customer Satisfactionâ€”guide everything we do. We are proud that our clients trust us to manage their critical, non-core tasks, enabling them to focus on their core competencies and patient care. Our ultimate goal is to reduce your workload and deliver outstanding outcomes that consistently exceed your expectations.
                   </Typography>
                   <Typography as="p" weight="semibold" className="text-gray-800">
-                    — Muhammad Younas Khan, Founder & CEO, MEDOCBILLS LLC
+                    â€” Muhammad Younas Khan, Founder & CEO, MEDOCBILLS LLC
                   </Typography>
                 </div>
               </div>
@@ -217,7 +192,7 @@ export default function AboutUs() {
                       className="text-secondary text-sm font-semibold hover:underline focus:outline-none focus:ring-2 focus:ring-secondary rounded-lg px-2 py-1 inline-block"
                       aria-label={`Learn more about ${solution.title}`}
                     >
-                      Read More →
+                      Read More â†’
                     </a>
                   </article>
                 </AnimatedSection>
@@ -240,7 +215,7 @@ export default function AboutUs() {
                 className="bg-transparent border-2 border-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-gray-900 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-900"
                 aria-label="Start your project with MedocBills"
               >
-                Let's Start Together →
+                Let's Start Together â†’
               </CustomButton>
             </AnimatedSection>
 
@@ -253,3 +228,5 @@ export default function AboutUs() {
     </>
   );
 }
+
+
