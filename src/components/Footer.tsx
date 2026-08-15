@@ -34,11 +34,13 @@ export default function Footer() {
               src={logo}
               alt="MedocBills company logo"
               className="h-12 w-auto mx-auto mb-4"
+              style={{ width: 'auto', height: 'auto' }}
               loading="eager"
               fetchPriority="high"
               width={182}
               height={48}
               priority
+              sizes="182px"
             />
 
             <p className="font-light text-sm mb-5">
@@ -137,7 +139,7 @@ export default function Footer() {
               <div className="flex gap-2">
                 {/* FIXED: Replaced Phone with IconFromData */}
                 <IconFromData name="Phone" size={18} />
-                <a href="tel:5715202235">571-520-2235</a>
+                <a href="tel:2013713521">201-371-3521</a>
               </div>
 
               <div className="flex gap-2">

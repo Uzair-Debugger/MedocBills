@@ -43,8 +43,8 @@ const Navbar = () => {
           <a href="mailto:info@medocbills.com" className="flex items-center gap-1 text-[11px]">
             <Icon name="Mail" width={20} /> info@medocbills.com
           </a>
-          <a href="tel:5715202235" className="flex items-center gap-1 text-[11px]">
-            <Icon name="Phone" width={20} /> 571-520-2235
+          <a href="tel:2013713521" className="flex items-center gap-1 text-[11px]">
+            <Icon name="Phone" width={20} />201-371-3521
           </a>
         </div>
 
@@ -62,11 +62,13 @@ const Navbar = () => {
             src={Logo}
             alt="MedocBills Logo"
             className="h-12 w-auto"
+            style={{ width: 'auto', height: 'auto' }}
             loading="eager"
             fetchPriority="high"
             width={182}
             height={48}
             priority
+            sizes="182px"
           />
         </Link>
 
@@ -78,7 +80,7 @@ const Navbar = () => {
                 <Link
                   href={item.path}
                   className={mergeClass(
-                    'font-light transition-colors duration-300 hover:text-primary',
+                    'font-light text-lg transition-colors duration-300 hover:text-primary',
                     pathname === item.path ? 'text-primary' : ''
                   )}
                 >
@@ -89,8 +91,8 @@ const Navbar = () => {
           </ul>
 
           <Link href="/contactus">
-            <CustomButton variant="primary" className="flex items-center gap-2 px-4 py-2">
-              Free Consultation <Icon name="ArrowRight" />
+            <CustomButton variant="primary">
+              Free Consultation
             </CustomButton>
           </Link>
         </div>

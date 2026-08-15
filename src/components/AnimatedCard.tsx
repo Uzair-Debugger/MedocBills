@@ -1,14 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { mergeClass } from '../utils/classUtils';
 
-interface AnimatedSectionProps {
-  children: React.ReactNode;
+interface AnimatedCardProps {
+  children: ReactNode;
   delay?: number;
   direction?: 'left' | 'right' | 'up';
+  className?: string;
 }
 
-export const AnimatedSection = ({ children, delay = 0, direction = 'left' }: AnimatedSectionProps) => {
+const AnimatedCard = ({ children, delay = 0, direction = 'left', className = '' }: AnimatedCardProps) => {
   const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -17,16 +19,16 @@ export const AnimatedSection = ({ children, delay = 0, direction = 'left' }: Ani
           setTimeout(() => setIsVisible(true), delay);
         }
       },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' },
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
     }
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      if (cardRef.current) {
+        observer.unobserve(cardRef.current);
       }
     };
   }, [delay]);
@@ -45,15 +47,18 @@ export const AnimatedSection = ({ children, delay = 0, direction = 'left' }: Ani
   };
 
   return (
-    <section
-      ref={sectionRef}
+    <div
+      ref={cardRef}
+      className={mergeClass('p-6', className)}
       style={{
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? 'translate(0)' : getInitialTransform(),
-        transition: 'opacity 0.8s ease-out, transform 0.8s ease-out'
+        transition: 'opacity 0.8s ease-out, transform 0.8s ease-out',
       }}
     >
       {children}
-    </section>
+    </div>
   );
 };
+
+export default AnimatedCard;

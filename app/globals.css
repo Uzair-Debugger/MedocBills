@@ -3,6 +3,7 @@
 :root {
   --color-primary: #8B1538;
   --color-primary-dark: #6B0F28;
+  --color-secondary-light: rgba(82, 165, 178, 0.814);
   --color-secondary: #1B7C8C;
   --color-secondary-dark: #176874;
   --color-secondary-accent: #19717f;
@@ -46,6 +47,7 @@
   --color-primary: var(--color-primary);
   --color-primary-dark: var(--color-primary-dark);
   --color-secondary: var(--color-secondary);
+  --color-secondary-light: var(--color-secondary-light);
   --color-secondary-dark: var(--color-secondary-dark);
   --color-secondary-accent: var(--color-secondary-accent);
   --color-secondary-hover: var(--color-secondary-hover);
@@ -84,7 +86,6 @@
 
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
 }
 
 .icon-btn {

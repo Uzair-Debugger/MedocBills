@@ -40,7 +40,8 @@ export function CustomButton({
         sizeClasses[size],
         fullWidth ? 'w-full' : '',
         roundedFull ? 'rounded-full' : 'rounded-md',
-        className
+        className,
+        className = 'cursor-pointer'
       )}
     />
   );

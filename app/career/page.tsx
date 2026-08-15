@@ -1,6 +1,7 @@
 ﻿'use client';
 
 import React, { useState, useMemo, useCallback } from 'react';
+import Link from 'next/link';
 import { jobs } from '../../src/constants/data';
 import { Container, Typography } from '../../src/components/layout';
 import { jobPostingSchema } from '../../src/constants/data';
@@ -27,7 +28,7 @@ export default function CareerPage() {
       <section className="min-h-screen bg-gray-50">
         <section
           aria-labelledby="careers-heading"
-          className="bg-gradient-to-br from-primary-deep via-primary-dark to-primary text-white py-24 px-6"
+          className="bg-linear-to-br from-primary-deep via-primary-dark to-primary text-white py-24 px-6"
         >
           <Container size="md" className="text-center">
             <Typography
@@ -58,7 +59,7 @@ export default function CareerPage() {
                   placeholder="Search Job Here..."
                   value={searchTerm}
                   onChange={handleSearchChange}
-                  className="w-full px-6 py-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 text-gray-900"
+                  className="w-full px-6 py-4 rounded-lg border-2 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-1 text-gray-200"
                   aria-label="Search jobs by title or category"
                   autoComplete="off"
                 />
@@ -113,19 +114,11 @@ export default function CareerPage() {
               aria-label="Available job positions"
             >
               {filteredJobs.map((job) => (
-                <article
+                <Link
                   key={job.id}
+                  href={`/careers/${job.id}`}
                   role="listitem"
-                  className="group border-2 border-gray-200 rounded-lg p-6 cursor-pointer bg-white hover:scale-105 hover:bg-gradient-to-br hover:from-primary-dark hover:to-primary-deep hover:border-primary hover:shadow-2xl transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      window.location.href = `/careers/${job.id}`;
-                    }
-                  }}
-                  onClick={() => {
-                    window.location.href = `/careers/${job.id}`;
-                  }}
+                  className="group block border-2 border-gray-200 rounded-lg p-6 cursor-pointer bg-white hover:scale-105 hover:bg-linear-to-br hover:from-primary-dark hover:to-primary-deep hover:border-primary hover:shadow-2xl transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                 >
                   <Typography
                     as="h2"
@@ -148,12 +141,12 @@ export default function CareerPage() {
 
                   <div className="space-y-2">
                     <div className="flex items-start gap-2 text-sm text-gray-700 group-hover:text-gray-200 transition-colors duration-300">
-                      <IconFromData name="MapPin" className="w-4 h-4 mt-0.5 flex-shrink-0" size={16} />
+                      <IconFromData name="MapPin" className="w-4 h-4 mt-0.5 shrink-0" size={16} />
                       <span>{job.location}</span>
                     </div>
 
                     <div className="flex items-center gap-2 text-sm">
-                      <IconFromData name="Calendar" className="w-4 h-4 flex-shrink-0" size={16} />
+                      <IconFromData name="Calendar" className="w-4 h-4 shrink-0" size={16} />
 
                       <Typography
                         as="span"
@@ -185,7 +178,7 @@ export default function CareerPage() {
                       Apply Now
                     </Typography>
                   </div>
-                </article>
+                </Link>
               ))}
             </div>
 
@@ -215,7 +208,7 @@ export default function CareerPage() {
           </Container>
         </section>
 
-        <section aria-labelledby="why-join-heading" className={sectionBase}>
+        <section aria-labelledby="why-join-heading" className="p-15">
           <Container className="max-w-6xl">
             <Typography as="h2" id="why-join-heading" variant="h2" weight="bold" className="text-center mb-12">
               Why Join <span className="text-secondary">MedocBills?</span>
