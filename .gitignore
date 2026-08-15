@@ -35,3 +35,9 @@ coverage
 
 # TypeScript cache
 *.tsbuildinfo
+
+# Local documentation (not tracked in git)
+MyLearnings.md
+NEXTJS_MIGRATION.md
+NEXTJS_MIGRATION_PHASE1.md
+
