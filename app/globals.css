@@ -1,0 +1,46 @@
+﻿@import "tailwindcss";
+
+:root {
+  --color-primary: #8B1538;
+  --color-primary-dark: #6B0F28;
+  --color-secondary: #1B7C8C;
+  --color-secondary-dark: #176874;
+  --color-secondary-accent: #19717f;
+  --color-secondary-hover: #157A89;
+  --color-primary-deep: #4B0A1C;
+  --color-accent-red: #ff014d;
+  --color-cyan-accent: #00ACC1;
+  --color-soft-pink: #fde2e2;
+  --color-brand-blue: #00a7e1;
+  --color-google-blue: #4285f4;
+  --color-text-dark: #2c3e50;
+  --color-cyan-light: #E0F7FA;
+  --color-primary-medium: #ad204a;
+  --color-teal-brand: #00a99d;
+  --color-primary-rgb: 139, 21, 56;
+  --color-secondary-rgb: 27, 124, 140;
+}
+
+@theme {
+  --color-primary: var(--color-primary);
+  --color-primary-dark: var(--color-primary-dark);
+  --color-secondary: var(--color-secondary);
+  --color-secondary-dark: var(--color-secondary-dark);
+  --color-secondary-accent: var(--color-secondary-accent);
+  --color-secondary-hover: var(--color-secondary-hover);
+  --color-primary-deep: var(--color-primary-deep);
+  --color-accent-red: var(--color-accent-red);
+  --color-cyan-accent: var(--color-cyan-accent);
+  --color-soft-pink: var(--color-soft-pink);
+  --color-brand-blue: var(--color-brand-blue);
+  --color-google-blue: var(--color-google-blue);
+  --color-text-dark: var(--color-text-dark);
+  --color-cyan-light: var(--color-cyan-light);
+  --color-primary-medium: var(--color-primary-medium);
+  --color-teal-brand: var(--color-teal-brand);
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}

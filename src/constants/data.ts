@@ -1,4 +1,5 @@
-import React, { ReactNode } from "react";
+﻿import React, { ReactNode } from 'react';
+import type { StaticImageData } from 'next/image';
 import Image1 from '../assets/Hero/1.webp'
 import Image2 from '../assets/Hero/2.webp'
 import Image3 from '../assets/Hero/3.webp'
@@ -54,7 +55,7 @@ type Slide = {
   title: ReactNode;
   description: string;
   button: string;
-  image: string;
+  image: StaticImageData | string;
 };
 
 export const slides: Slide[] = [
@@ -97,7 +98,7 @@ export const whyToChoose = {
   points: [
     {
       title: "We Reduce Your Administrative Burden",
-      para: "Focus on patients — we take care of the billing complexities."
+      para: "Focus on patients â€” we take care of the billing complexities."
     },
     {
       title: "We Improve Your Revenue Performance",
@@ -245,9 +246,9 @@ export const doctorsData = [
 export const faqs = [
   { question: 'How do we get started?', answer: 'Getting started is simple. Share your practice details, including your specialty, practice model, and any specific concerns. Let us know the best time to contact you so we can prepare a tailored healthcare management solution designed specifically for your practice.' },
   { question: 'Why should I trust MedocBills for billing?', answer: 'MedocBills serves a wide range of medical specialties, providing customized billing solutions that comply with HIPAA and industry standards. Our trained and experienced team has consistently helped practices improve revenue, reduce denials, and eliminate the stress of managing an in-house billing department.' },
-  { question: 'What makes MedocBills different from other billing services?', answer: 'We operate as an extension of your practice, with hands-on management that ensures smooth operations and maximized revenue. Our focus is on reducing your revenue cycle time while delivering measurable results. With MedocBills, your success is our top priority — and our proven track record demonstrates it.' },
+  { question: 'What makes MedocBills different from other billing services?', answer: 'We operate as an extension of your practice, with hands-on management that ensures smooth operations and maximized revenue. Our focus is on reducing your revenue cycle time while delivering measurable results. With MedocBills, your success is our top priority â€” and our proven track record demonstrates it.' },
   { question: 'Is MedocBills ICD-10 ready?', answer: 'Yes. We are fully ICD-10 compliant and ensure accurate coding for every claim.' },
-  { question: 'What reports does MedocBills provide?', answer: 'We provide monthly reports covering account activity, aging, and other key metrics. Custom reports can also be designed based on your needs. We recommend monthly review meetings to compare past and current collections, track trends, evaluate practice performance, and measure how MedocBills is contributing to your practice’s success.' }
+  { question: 'What reports does MedocBills provide?', answer: 'We provide monthly reports covering account activity, aging, and other key metrics. Custom reports can also be designed based on your needs. We recommend monthly review meetings to compare past and current collections, track trends, evaluate practice performance, and measure how MedocBills is contributing to your practiceâ€™s success.' }
 ];
 
 // ============================================================================
@@ -329,3 +330,4 @@ export const heroParagraphs = [
   `Revenue Cycle Management is defined as a process of identifying errors of claims, appealing denied claims, and keeping up with patient's insurance eligibility at every touchpoint where the patient and providers intersect, resulting in smoother payment to match your healthcare system's unique requirements.`,
   `A discerning healthcare payments lifecycle begins with admission of a patient or encounter and finishes up till all the claims are accurately paid in full. Our team gives you the authority of medical procedures, quality care, and effective revenue cycle software together.`
 ];
+

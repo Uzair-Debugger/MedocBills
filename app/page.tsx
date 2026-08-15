@@ -1,10 +1,14 @@
+﻿'use client';
+
 import React, { useEffect, useState, useCallback } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
-import AnimatedSection from '../components/AnimatedSection';
-import MedicalSpecialties from '../components/MedicalSpecialties';
-import RequestCallBackForm from '../components/Reachus';
-import { Typography, CustomButton, Container } from '../components/layout';
+import AnimatedSection from '../src/components/AnimatedSection';
+import MedicalSpecialties from '../src/components/MedicalSpecialties';
+import RequestCallBackForm from '../src/components/Reachus';
+import { Typography, CustomButton, Container } from '../src/components/layout';
 import {
+
   whatwedo,
   clientBase,
   successRate,
@@ -12,9 +16,9 @@ import {
   testimonials,
   testimonialVariants,
   slides,
-} from '../constants/data';
-import { PersonSVG } from '../constants/icons';
-import { IconFromData } from '../helper/IconFromData';
+} from '../src/constants/data';
+import { PersonSVG } from '../src/constants/icons';
+import { IconFromData } from '../src/helper/IconFromData';
 
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -74,7 +78,7 @@ const Hero = () => {
 
   return (
     <section className="flex flex-col items-center justify-center">
-      {/* ── Hero Slider ─────────────────────────────── */}
+      {/* â”€â”€ Hero Slider â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section
         aria-label="Hero slideshow"
         className="relative p-3 w-full bg-gradient-to-br from-teal-50 to-white overflow-hidden"
@@ -120,12 +124,13 @@ const Hero = () => {
                   {/* Image */}
                   <div className="w-full md:w-1/2 flex justify-center items-center">
                     <div className="w-full max-w-md md:max-w-none py-10">
-                      <img
+                      <Image
                         src={slides[currentSlide].image}
                         alt={`Healthcare solution illustration: ${slides[currentSlide].title}`}
                         className="shadow-lg w-full h-[280px] sm:h-[350px] md:h-[450px] lg:h-[500px] object-cover rounded-lg"
-                        loading="eager"
-                        fetchPriority="high"
+                        width={800}
+                        height={500}
+                        priority
                       />
                     </div>
                   </div>
@@ -160,7 +165,7 @@ const Hero = () => {
         </Container>
       </section>
 
-      {/* ── Client Base ────────────────────────────── */}
+      {/* â”€â”€ Client Base â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section aria-labelledby="client-base-heading">
         <Container size="lg" className="my-8 flex justify-center px-4 sm:my-12">
           <AnimatedSection direction="up" className="grid w-full grid-cols-1 gap-8 p-4 sm:gap-10 sm:p-5 md:grid-cols-2">
@@ -206,7 +211,7 @@ const Hero = () => {
         </Container>
       </section>
 
-      {/* ── Services ─────────────────────────────── */}
+      {/* â”€â”€ Services â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section
         aria-labelledby="services-heading"
         className="relative w-full overflow-hidden bg-secondary py-12"
@@ -259,7 +264,7 @@ const Hero = () => {
         </Container>
       </section>
 
-      {/* ── Why Choose / Success Rate ───────────────── */}
+      {/* â”€â”€ Why Choose / Success Rate â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section aria-labelledby="why-choose-heading" className="w-full max-w-7xl mx-auto px-4">
         <AnimatedSection direction="left" className="flex w-full flex-col-reverse rounded-lg shadow-lg sm:p-6 md:flex-row lg:p-8">
           <div
@@ -298,10 +303,10 @@ const Hero = () => {
         </AnimatedSection>
       </section>
 
-      {/* ── Medical Specialties ────────────────────── */}
+      {/* â”€â”€ Medical Specialties â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <MedicalSpecialties />
 
-      {/* ── Testimonials ──────────────────────────── */}
+      {/* â”€â”€ Testimonials â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section
         aria-labelledby="testimonials-heading"
         className="relative mt-8 flex w-full items-center justify-center overflow-hidden bg-gradient-to-br from-primary to-primary-deep px-4 py-10 font-sans sm:mt-10 sm:py-12 md:py-16"
@@ -374,10 +379,14 @@ const Hero = () => {
         </div>
       </section>
 
-      {/* ── Callback Form ────────────────────────── */}
+      {/* â”€â”€ Callback Form â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <RequestCallBackForm />
     </section>
   );
 };
 
 export default Hero;
+
+
+
+

@@ -1,45 +1,20 @@
+﻿'use client';
+
 import React from 'react';
-import { medicalBusinessSchema, heroParagraphs } from '../constants/data';
-import { Helmet } from 'react-helmet-async';
-import { services, rcmSteps, whyChoose, keyPoints } from '../constants/data';
-import { AnimatedSection } from '../components/Animation';
-import { Typography } from '../components/layout';
-import { Container } from '../components/layout/Container';
-import { CustomButton } from '../components/layout';
-import { IconFromData } from '../helper/IconFromData';
+import { medicalBusinessSchema, heroParagraphs } from '../../src/constants/data';
+import { services, rcmSteps, whyChoose, keyPoints } from '../../src/constants/data';
+import { AnimatedSection } from '../../src/components/Animation';
+import { Typography } from '../../src/components/layout';
+import { Container } from '../../src/components/layout/Container';
+import { CustomButton } from '../../src/components/layout';
+import { IconFromData } from '../../src/helper/IconFromData';
+
 
 export default function ClientsPage() {
 
   return (
     <>
-      <Helmet>
-        <title>Healthcare RCM Services | Medical Billing for Healthcare Systems</title>
-        <meta 
-          name="description" 
-          content="Comprehensive Revenue Cycle Management (RCM) services for healthcare systems. Expert medical billing, coding, and claims management to optimize your revenue cycle." 
-        />
-        <meta 
-          name="keywords" 
-          content="RCM services, healthcare revenue cycle management, medical billing for hospitals, healthcare system billing, revenue cycle software" 
-        />
-        <link rel="canonical" href="https://www.rightmedicalbilling.com/clients" />
-        
-        {/* Open Graph tags */}
-        <meta property="og:title" content="Healthcare RCM Services | Medical Billing for Healthcare Systems" />
-        <meta property="og:description" content="Expert Revenue Cycle Management services to optimize your healthcare system's financial performance" />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.rightmedicalbilling.com/clients" />
-        
-        {/* Twitter Card tags */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Healthcare RCM Services" />
-        <meta name="twitter:description" content="Expert medical billing and revenue cycle management for healthcare systems" />
-        
-        {/* Schema markup */}
-        <script type="application/ld+json">
-          {JSON.stringify(medicalBusinessSchema)}
-        </script>
-      </Helmet>
+      
 
       <div className="min-h-screen bg-white">
         {/* Hero Section */}
@@ -359,3 +334,5 @@ export default function ClientsPage() {
     </>
   );
 }
+
+

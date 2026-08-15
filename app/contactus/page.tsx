@@ -1,7 +1,9 @@
+﻿'use client';
+
 import React, { useState, useMemo, useCallback } from 'react';
-import { Helmet } from 'react-helmet-async';
-import ContactUsPic from '../assets/Hero/contactus.webp';
-import { Container, Typography, CustomButton } from '../components/layout';
+import ContactUsPic from '../../src/assets/Hero/contactus.webp';
+import { Container, Typography, CustomButton } from '../../src/components/layout';
+
 
 const ContactUs = () => {
     const [formData, setFormData] = useState({
@@ -120,41 +122,16 @@ const ContactUs = () => {
 
     return (
         <>
-            <Helmet>
-                <title>Contact MedocBills | Medical Billing Support & Consultation</title>
-                <meta
-                    name="description"
-                    content="Get in touch with MedocBills for professional medical billing support, consultations, or custom service requests. Our healthcare IT experts are here to help 24/7."
-                />
-                <meta name="keywords" content="contact medical billing, healthcare billing support, medical billing consultation, revenue cycle management contact" />
-                <link rel="canonical" href="https://www.medocbills.com/contactus" />
-                
-                {/* Open Graph tags */}
-                <meta property="og:title" content="Contact MedocBills | Medical Billing Support" />
-                <meta property="og:description" content="Ready to optimize your medical billing? Contact our team of healthcare IT experts today." />
-                <meta property="og:type" content="website" />
-                <meta property="og:url" content="https://www.medocbills.com/contactus" />
-                <meta property="og:image" content={ContactUsPic} />
-                
-                {/* Twitter Card tags */}
-                <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content="Contact MedocBills | Medical Billing Support" />
-                <meta name="twitter:description" content="Ready to optimize your medical billing? Contact our team of healthcare IT experts today." />
-                
-                {/* Organization Schema */}
-                <script type="application/ld+json">
-                    {JSON.stringify(organizationSchema)}
-                </script>
-            </Helmet>
+            
 
             {/* FIXED: Added explicit width/height and preload for background image */}
             <section
                 aria-labelledby="contact-heading"
                 className="min-h-screen flex items-center justify-center bg-cover bg-center relative"
-                style={{ backgroundImage: `url(${ContactUsPic})` }}
+                style={{ backgroundImage: `url(${ContactUsPic.src})` }}
             >
                 {/* Preload the background image for better performance */}
-                <link rel="preload" as="image" href={ContactUsPic} />
+                <link rel="preload" as="image" href={ContactUsPic.src} />
                 
                 {/* Overlay for gradient */}
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/90 to-secondary/90" aria-hidden="true"></div>
@@ -277,10 +254,10 @@ const ContactUs = () => {
                                         className="bg-transparent text-sm rounded-l-xl px-4 py-3 focus:outline-none cursor-pointer font-medium"
                                         aria-label="Select Country Code"
                                     >
-                                        <option value="USA">🇺🇸 USA (+1)</option>
-                                        <option value="UK">🇬🇧 UK (+44)</option>
-                                        <option value="CA">🇨🇦 CA (+1)</option>
-                                        <option value="PAK">🇵🇰 PAK (+92)</option>
+                                        <option value="USA">ðŸ‡ºðŸ‡¸ USA (+1)</option>
+                                        <option value="UK">ðŸ‡¬ðŸ‡§ UK (+44)</option>
+                                        <option value="CA">ðŸ‡¨ðŸ‡¦ CA (+1)</option>
+                                        <option value="PAK">ðŸ‡µðŸ‡° PAK (+92)</option>
                                     </select>
                                     <input
                                         required
@@ -381,3 +358,7 @@ const ContactUs = () => {
 };
 
 export default ContactUs;
+
+
+
+

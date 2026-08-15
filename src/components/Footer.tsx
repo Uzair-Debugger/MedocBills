@@ -1,3 +1,5 @@
+﻿'use client';
+import Image from 'next/image';
 import { useState, useCallback, ChangeEvent, FormEvent } from 'react';
 import logo from '../assets/logo.webp';
 import { Container, Typography, CustomButton } from './layout';
@@ -27,15 +29,15 @@ export default function Footer() {
 
           {/* Logo Section */}
           <div className="border-2 border-secondary rounded-lg p-5 text-center">
-            <img
+            <Image
               src={logo}
-              srcSet={`${logo} 1x`}
               alt="MedocBills company logo"
               className="h-12 w-auto mx-auto mb-4"
               loading="eager"
               fetchPriority="high"
-              width="182"
-              height="48"
+              width={182}
+              height={48}
+              priority
             />
 
             <p className="font-light text-sm mb-5">
