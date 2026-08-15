@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { medicalBusinessSchema, heroParagraphs } from '../../src/constants/data';
 import { services, rcmSteps, whyChoose, keyPoints } from '../../src/constants/data';
 import AnimatedSection from '../../src/components/AnimatedSection';
+import AnimatedCard from '../../src/components/AnimatedCard';
 import { Typography } from '../../src/components/layout';
 import { Container } from '../../src/components/layout/Container';
 import { CustomButton } from '../../src/components/layout';
@@ -19,7 +20,7 @@ export default function ClientsPage() {
       <div className="min-h-screen bg-white">
         <section
           aria-labelledby="hero-heading"
-          className="bg-gradient-to-br from-teal-50 to-white py-12 px-3"
+          className="bg-linear-to-br from-teal-50 to-white py-12 px-3"
         >
           <Container>
             <AnimatedSection direction="up">
@@ -73,7 +74,7 @@ export default function ClientsPage() {
                 </div>
 
                 <aside className="w-full lg:w-80 space-y-4" aria-label="Client information and appointment">
-                  <AnimatedSection direction="right">
+                  <AnimatedCard direction="right">
                     <div className="bg-white rounded-lg shadow-md p-6 border-t-4 border-primary text-center">
                       <IconFromData name="Building2" className="w-16 h-16 text-primary mx-auto mb-4" size={64} />
                       <Typography as="h2" variant="h5" weight="bold">
@@ -83,9 +84,9 @@ export default function ClientsPage() {
                         Trusted by healthcare systems nationwide
                       </Typography>
                     </div>
-                  </AnimatedSection>
+                  </AnimatedCard>
 
-                  <AnimatedSection direction="right" delay={100}>
+                  <AnimatedCard direction="right" delay={100}>
                     <div
                       className="bg-white rounded-lg shadow-md p-6 border-t-4 border-secondary space-y-3"
                       aria-label="Appointment form"
@@ -121,7 +122,7 @@ export default function ClientsPage() {
                         Send Message
                       </CustomButton>
                     </div>
-                  </AnimatedSection>
+                  </AnimatedCard>
                 </aside>
               </div>
             </AnimatedSection>
@@ -143,12 +144,12 @@ export default function ClientsPage() {
             </AnimatedSection>
 
             <div
-              className="space-y-8"
+              className=""
               role="list"
               aria-label="Our medical billing services"
             >
               {services.map((service, index) => (
-                <AnimatedSection key={index} direction="left" delay={index * 100}>
+                <AnimatedCard key={index} direction="left" delay={index * 100} className='p-3'>
                   <article
                     className="bg-white rounded-lg shadow-sm p-6 border-l-4 border-secondary"
                     role="listitem"
@@ -160,7 +161,7 @@ export default function ClientsPage() {
                       {service.description}
                     </Typography>
                   </article>
-                </AnimatedSection>
+                </AnimatedCard>
               ))}
             </div>
           </Container>
@@ -183,17 +184,17 @@ export default function ClientsPage() {
               aria-label="RCM process steps"
             >
               {rcmSteps.map((step, index) => (
-                <AnimatedSection key={index} direction="left" delay={index * 50}>
+                <AnimatedCard key={index} direction="left" delay={index * 50} className='p-2'>
                   <div
                     className="flex items-start gap-3 bg-white p-4 rounded-lg shadow-sm border border-gray-200"
                     role="listitem"
                   >
-                    <IconFromData name="CheckCircle2" className="w-5 h-5 text-secondary flex-shrink-0 mt-1" size={20} />
+                    <IconFromData name="CheckCircle2" className="w-5 h-5 text-secondary shrink-0 mt-1" size={20} />
                     <Typography as="span" size="sm" className="text-gray-700">
                       {step}
                     </Typography>
                   </div>
-                </AnimatedSection>
+                </AnimatedCard>
               ))}
             </div>
           </Container>
@@ -232,7 +233,7 @@ export default function ClientsPage() {
                 >
                   {whyChoose.map((item, index) => (
                     <div key={index} className="flex items-center gap-3" role="listitem">
-                      <IconFromData name="CheckCircle2" className="w-5 h-5 text-secondary flex-shrink-0" size={20} />
+                      <IconFromData name="CheckCircle2" className="w-5 h-5 text-secondary shrink-0" size={20} />
                       <Typography as="span" size="sm" className="text-white/90">
                         {item}
                       </Typography>
@@ -262,17 +263,17 @@ export default function ClientsPage() {
               aria-label="Key advantages"
             >
               {keyPoints.map((point, index) => (
-                <AnimatedSection key={index} direction="left" delay={index * 50}>
+                <AnimatedCard key={index} direction="left" delay={index * 50} className='p-2'>
                   <div
                     className="flex items-start gap-3 bg-gray-50 p-4 rounded-lg border-l-4 border-secondary"
                     role="listitem"
                   >
-                    <IconFromData name="CheckCircle2" className="w-5 h-5 text-secondary flex-shrink-0 mt-1" size={20} />
+                    <IconFromData name="CheckCircle2" className="w-5 h-5 text-secondary shrink-0 mt-1" size={20} />
                     <Typography as="span" size="sm" className="text-gray-700">
                       {point}
                     </Typography>
                   </div>
-                </AnimatedSection>
+                </AnimatedCard>
               ))}
             </div>
           </Container>
@@ -280,7 +281,7 @@ export default function ClientsPage() {
 
         <section
           aria-labelledby="contact-heading"
-          className="py-16 px-3 bg-gradient-to-br from-primary-deep via-primary-dark to-primary text-white relative overflow-hidden"
+          className="py-16 px-3 bg-linear-to-br from-primary-deep via-primary-dark to-primary text-white relative overflow-hidden"
         >
           <AnimatedSection direction="up">
             <Container>

@@ -1,7 +1,7 @@
-export const sectionBase = 'py-16 px-6';
+export const sectionBase = 'p-7';
 export const headingBase = 'text-3xl font-bold tracking-tight';
 export const paragraphBase = 'text-base leading-relaxed';
-export const buttonBase = 'inline-flex items-center justify-center font-medium shadow-sm';
+export const buttonBase = 'items-center justify-center font-medium shadow-sm';
 export const inputBase = 'w-full rounded-md px-4 py-3 focus:outline-none focus:ring-2';
 export const cardBase = 'bg-white rounded-lg shadow-sm border border-gray-200';
 export const containerBase = 'mx-auto max-w-7xl';

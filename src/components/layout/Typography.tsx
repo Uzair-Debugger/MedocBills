@@ -19,7 +19,7 @@ const variantClasses: Record<TypographyVariant, string> = {
   h3: 'text-3xl font-semibold tracking-tight',
   h4: 'text-2xl font-semibold tracking-tight',
   h5: 'text-xl font-semibold tracking-tight',
-  p: 'sm:text-base leading-relaxed text-sm',
+  p: ' leading-relaxed text-lg',
   small: 'text-sm leading-relaxed',
   label: 'text-sm font-medium uppercase tracking-[0.3em]',
 };
@@ -30,7 +30,7 @@ const colorMap: Record<NonNullable<TypographyProps<'div'>['color']> | 'white/90'
   white: 'text-white',
   'white/90': 'text-white/90',
   gray: 'text-gray-700',
-  inherit: 'text-inherit', 
+  inherit: 'text-inherit',
 };
 
 const alignMap: Record<NonNullable<TypographyProps<'div'>['align']>, string> = {
@@ -61,10 +61,10 @@ export function Typography<T extends ElementType = 'p'>({
     <Component
       className={mergeClass(
         variantClasses[variant],
-        weightMap[weight],  
+        weightMap[weight],
         colorMap[color],
         align && alignMap[align],
-        size ?? '', 
+        size ?? '',
         className
       )}
       {...rest}

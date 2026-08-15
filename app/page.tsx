@@ -4,6 +4,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import AnimatedSection from '../src/components/AnimatedSection';
+import AnimatedCard from '../src/components/AnimatedCard';
 import MedicalSpecialties from '../src/components/MedicalSpecialties';
 import RequestCallBackForm from '../src/components/Reachus';
 import { mergeClass } from '../src/utils/classUtils';
@@ -79,10 +80,10 @@ const Hero = () => {
 
   return (
     <section className="flex flex-col items-center justify-center">
-      {/* â”€â”€ Hero Slider â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* Hero Slider */}
       <section
         aria-label="Hero slideshow"
-        className="relative p-3 w-full bg-gradient-to-br from-teal-50 to-white overflow-hidden"
+        className="relative p-3 w-full bg-linear-to-br from-teal-50 to-white overflow-hidden"
       >
         <Container size="lg" className="relative w-full pt-7 md:pt-0">
           <div
@@ -106,7 +107,7 @@ const Hero = () => {
                     <Typography as="h1" variant="h1" color="primary" className="leading-tight">
                       {slides[currentSlide].title}
                     </Typography>
-                    <Typography as="p" variant="p" color="gray" className="py-3 sm:py-4 leading-7 font-light">
+                    <Typography as="p" variant="h5" color="gray" className="py-3 sm:py-4 leading-7 font-light">
                       {slides[currentSlide].description}
                     </Typography>
                     <div className="flex flex-col sm:flex-row justify-center md:justify-start gap-3 mt-3 sm:mt-4">
@@ -125,7 +126,7 @@ const Hero = () => {
                   {/* Image */}
                   <div className="w-full md:w-1/2 flex justify-center items-center">
                     <div className="w-full max-w-md md:max-w-none py-10">
-                    <Image
+                      <Image
                         src={slides[currentSlide].image}
                         alt={`Healthcare solution illustration: ${slides[currentSlide].title}`}
                         className="shadow-lg w-full h-[280px] sm:h-[350px] md:h-[450px] lg:h-[500px] object-cover rounded-lg"
@@ -133,7 +134,7 @@ const Hero = () => {
                         height={500}
                         priority
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
-                    />
+                      />
                     </div>
                   </div>
                 </div>
@@ -167,7 +168,7 @@ const Hero = () => {
         </Container>
       </section>
 
-      {/* â”€â”€ Client Base â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* Client Base  */}
       <section aria-labelledby="client-base-heading">
         <Container size="lg" className="my-8 flex justify-center px-4 sm:my-12">
           <AnimatedSection direction="up" className="grid w-full grid-cols-1 gap-8 p-4 sm:gap-10 sm:p-5 md:grid-cols-2">
@@ -199,9 +200,9 @@ const Hero = () => {
                   className="flex h-max items-center justify-center rounded-lg bg-teal-50 p-4 shadow-sm transition-shadow hover:shadow-md sm:p-5"
                   role="listitem"
                 >
-                  <IconFromData 
-                    key={index} 
-                    name={iconName} 
+                  <IconFromData
+                    key={index}
+                    name={iconName}
                     className="text-secondary sm:h-[50px] sm:w-[50px]"
                     size={40}
                   />
@@ -213,7 +214,7 @@ const Hero = () => {
         </Container>
       </section>
 
-      {/* â”€â”€ Services â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* Services */}
       <section
         aria-labelledby="services-heading"
         className="relative w-full overflow-hidden bg-secondary py-12"
@@ -243,34 +244,34 @@ const Hero = () => {
         >
           {whatwedo.map((service, index) => (
             <div key={index} role="listitem">
-              <AnimatedSection
+              <AnimatedCard
                 direction="up"
                 delay={index * 100}
                 className="flex flex-col items-start rounded-2xl bg-white p-8 shadow-lg"
               >
                 <div className="mb-6 rounded-lg bg-cyan-light p-4" aria-hidden="true">
                   {/* FIXED: Changed from <service.icon /> to <IconFromData /> */}
-                  <IconFromData 
-                    name={service.icon} 
-                    size={40} 
+                  <IconFromData
+                    name={service.icon}
+                    size={40}
                     className="text-secondary"
                   />
                 </div>
                 <Typography as="h3" variant="h3" color="primary" className="mb-4 underline decoration-cyan-accent">
                   {service.title}
                 </Typography>
-                <Typography as="p" color="gray">{service.description}</Typography>
-              </AnimatedSection>
+                <Typography as="p" variant='p' color="gray">{service.description}</Typography>
+              </AnimatedCard>
             </div>
           ))}
         </Container>
       </section>
 
-      {/* â”€â”€ Why Choose / Success Rate â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* Why Choose / Success Rate */}
       <section aria-labelledby="why-choose-heading" className="w-full max-w-7xl mx-auto px-4">
         <AnimatedSection direction="left" className="flex w-full flex-col-reverse rounded-lg shadow-lg sm:p-6 md:flex-row lg:p-8">
           <div
-            className="flex flex-1 flex-col justify-center rounded-3xl bg-gradient-to-br from-teal-50 to-cyan-50 p-6 text-center sm:p-8 md:ml-5 md:mt-0 md:items-start"
+            className="flex flex-1 flex-col justify-center rounded-3xl bg-linear-to-br from-teal-50 to-cyan-50 p-6 text-center sm:p-8 md:ml-5 md:mt-0 md:items-start"
             aria-label="Success metrics"
           >
             {successRate.map((item, index) => (
@@ -305,13 +306,13 @@ const Hero = () => {
         </AnimatedSection>
       </section>
 
-      {/* â”€â”€ Medical Specialties â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* Medical Specialties */}
       <MedicalSpecialties />
 
-      {/* â”€â”€ Testimonials â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* Testimonials */}
       <section
         aria-labelledby="testimonials-heading"
-        className="relative mt-8 flex w-full items-center justify-center overflow-hidden bg-gradient-to-br from-primary to-primary-deep px-4 py-10 font-sans sm:mt-10 sm:py-12 md:py-16"
+        className="relative mt-8 flex w-full items-center justify-center overflow-hidden bg-linear-to-br from-primary to-primary-deep px-4 py-10 font-sans sm:mt-10 sm:py-12 md:py-16"
       >
         <div
           className="pointer-events-none absolute inset-0 opacity-10"
@@ -381,7 +382,7 @@ const Hero = () => {
         </div>
       </section>
 
-      {/* â”€â”€ Callback Form â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* Callback Form */}
       <RequestCallBackForm />
     </section>
   );
