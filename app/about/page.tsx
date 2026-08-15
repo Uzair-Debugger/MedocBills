@@ -4,6 +4,8 @@ import React from 'react';
 import { organizationSchema, pillars, stats, solutions } from '../../src/constants/data';
 import { AnimatedSection } from '../../src/components/Animation';
 import { Container, Typography, CustomButton } from '../../src/components/layout';
+import { mergeClass } from '../../src/utils/classUtils';
+import { sectionBase } from '../../src/theme/classes';
 import { IconFromData } from '../../src/helper/IconFromData';
 
 
@@ -41,7 +43,7 @@ export default function AboutUs() {
         {/* Leadership Section */}
         <section 
           aria-labelledby="leadership-heading"
-          className="py-16 px-6 bg-gray-50"
+          className={mergeClass(sectionBase, 'bg-gray-50')}
         >
           <Container className="max-w-6xl">
             <AnimatedSection direction="left">
@@ -68,7 +70,7 @@ export default function AboutUs() {
         </section>
 
         {/* Three Pillars Section */}
-        <section aria-labelledby="pillars-heading" className="py-16 px-6">
+        <section aria-labelledby="pillars-heading" className={sectionBase}>
           <Container className="max-w-6xl">
             <AnimatedSection direction="up">
               <Typography as="h2" id="pillars-heading" variant="h3" weight="bold" align="center" className="mb-4">
@@ -87,7 +89,7 @@ export default function AboutUs() {
               {pillars.map((pillar, idx) => (
                 <AnimatedSection key={idx} direction="left" delay={idx * 200}>
                   <article className="text-center" role="listitem">
-                    <div className={`w-16 h-16 rounded-lg mx-auto mb-4 flex items-center justify-center ${pillar.gradient}`}>
+                    <div className={mergeClass('w-16 h-16 rounded-lg mx-auto mb-4 flex items-center justify-center', pillar.gradient)}>
                       {/* FIXED: Using IconFromData for pillar icons (pillar.icon is now a string) */}
                       <IconFromData name={pillar.icon as string} className="w-8 h-8 text-white" size={32} />
                     </div>
@@ -103,7 +105,7 @@ export default function AboutUs() {
         {/* Stats Section */}
         <section 
           aria-labelledby="stats-heading"
-          className="bg-gradient-to-br from-primary-deep via-primary-dark to-primary text-white py-16 px-6"
+          className={mergeClass(sectionBase, 'bg-gradient-to-br from-primary-deep via-primary-dark to-primary text-white')}
         >
           <Container className="max-w-6xl">
             <AnimatedSection direction="up">
@@ -141,7 +143,7 @@ export default function AboutUs() {
         </section>
 
         {/* Solutions Section */}
-        <section aria-labelledby="solutions-heading" className="py-16 px-6">
+        <section aria-labelledby="solutions-heading" className={sectionBase}>
           <Container className="max-w-6xl">
             <AnimatedSection direction="up">
               <Typography as="h2" id="solutions-heading" variant="h3" weight="bold" align="center" className="mb-4">
@@ -164,7 +166,7 @@ export default function AboutUs() {
                     as="h3" 
                     variant="h5" 
                     weight="bold" 
-                    className={idx === 0 ? 'text-secondary' : ''}
+                     className={mergeClass(idx === 0 ? 'text-secondary' : '')}
                     role="listitem"
                   >
                     {item}
@@ -181,7 +183,7 @@ export default function AboutUs() {
               {solutions.map((solution, idx) => (
                 <AnimatedSection key={idx} direction={idx % 2 === 0 ? 'left' : 'right'} delay={0}>
                   <article className="bg-white p-6 rounded-lg shadow-sm" role="listitem">
-                    <div className={`w-16 h-16 rounded-lg mb-4 flex items-center justify-center bg-gradient-to-br ${solution.gradient}`}>
+                     <div className={mergeClass('w-16 h-16 rounded-lg mb-4 flex items-center justify-center bg-gradient-to-br', solution.gradient)}>
                       {/* FIXED: Using IconFromData for solution icons (solution.icon is now a string) */}
                       <IconFromData name={solution.icon as string} className="w-8 h-8 text-white" size={32} />
                     </div>
@@ -204,7 +206,7 @@ export default function AboutUs() {
         {/* CTA Section */}
         <section 
           aria-labelledby="cta-heading"
-          className="bg-gray-900 text-white py-16 px-6 relative overflow-hidden"
+          className={mergeClass(sectionBase, 'bg-gray-900 text-white relative overflow-hidden')}
         >
           <Container className="max-w-4xl text-center relative z-10">
             <AnimatedSection direction="up">

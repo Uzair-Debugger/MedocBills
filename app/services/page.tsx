@@ -4,6 +4,7 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 import type { CounterProps } from '../../src/constants/types';
 import { servicesData, statsData, doctorsData, faqs } from '../../src/constants/data';
 import { Container, Typography, CustomButton } from '../../src/components/layout';
+import { mergeClass } from '../../src/utils/classUtils';
 import { IconFromData } from '../../src/helper/IconFromData';
 
 
@@ -48,11 +49,10 @@ interface ServiceCardProps {
 
 const ServiceCard = ({ title, description, index, isVisible }: ServiceCardProps) => (
   <article
-    className={`group p-4 text-left bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-xl hover:bg-white/20 hover:border-secondary transition-all duration-700 ease-out transform ${
-      isVisible
-        ? 'translate-y-0 opacity-100'
-        : 'translate-y-12 opacity-0'
-    }`}
+    className={mergeClass(
+      'group p-4 text-left bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-xl hover:bg-white/20 hover:border-secondary transition-all duration-700 ease-out transform',
+      isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
+    )}
     style={{ transitionDelay: `${index * 0.15}s` }}
   >
     <div className="flex flex-col sm:flex-row items-start gap-3">
@@ -230,9 +230,10 @@ const DoctorsSlider = () => {
               <button
                 key={index}
                 onClick={() => { setCurrentIndex(index); handleUserInteraction(); }}
-                className={`h-2 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-primary ${
+                className={mergeClass(
+                  'h-2 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-primary',
                   index === currentIndex ? 'w-8 bg-primary' : 'w-2 bg-gray-300 hover:bg-gray-400'
-                }`}
+                )}
                 aria-label={`Go to doctor ${index + 1}`}
                 aria-current={index === currentIndex ? 'true' : 'false'}
                 role="tab"
@@ -262,15 +263,15 @@ const FAQItem = ({ faq, isOpen, onClick }: FAQItemProps) => (
     >
       <span className="font-semibold text-gray-900">{faq.question}</span>
       {/* FIXED: Replaced ChevronDown with IconFromData */}
-      <IconFromData 
-        name="ChevronDown" 
-        className={`w-5 h-5 text-gray-500 transform transition-transform ${isOpen ? 'rotate-180' : ''}`}
+      <IconFromData
+        name="ChevronDown"
+        className={mergeClass('w-5 h-5 text-gray-500 transform transition-transform', isOpen ? 'rotate-180' : '')}
         size={20}
       />
     </button>
-    <div 
+    <div
       id={`faq-answer-${faq.question.replace(/\s+/g, '-').toLowerCase()}`}
-      className={`px-6 overflow-hidden transition-all duration-300 ${isOpen ? 'pb-4 max-h-96' : 'max-h-0'}`}
+      className={mergeClass('px-6 overflow-hidden transition-all duration-300', isOpen ? 'pb-4 max-h-96' : 'max-h-0')}
       aria-hidden={!isOpen}
     >
       {isOpen && <Typography as="p" color="gray">{faq.answer}</Typography>}

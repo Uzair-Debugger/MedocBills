@@ -1,7 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
-export const AnimatedSection = ({ children, delay = 0, direction = 'left' }:any) => {
+
+interface AnimatedSectionProps {
+  children: React.ReactNode;
+  delay?: number;
+  direction?: 'left' | 'right' | 'up';
+}
+
+export const AnimatedSection = ({ children, delay = 0, direction = 'left' }: AnimatedSectionProps) => {
   const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(

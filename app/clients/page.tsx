@@ -8,38 +8,35 @@ import { Typography } from '../../src/components/layout';
 import { Container } from '../../src/components/layout/Container';
 import { CustomButton } from '../../src/components/layout';
 import { IconFromData } from '../../src/helper/IconFromData';
-
+import { mergeClass } from '../../src/utils/classUtils';
+import { sectionBase } from '../../src/theme/classes';
 
 export default function ClientsPage() {
 
   return (
     <>
-      
-
       <div className="min-h-screen bg-white">
-        {/* Hero Section */}
-        <section 
+        <section
           aria-labelledby="hero-heading"
           className="bg-gradient-to-br from-teal-50 to-white py-12 px-3"
         >
           <Container>
             <AnimatedSection direction="up">
               <div className="flex flex-col lg:flex-row items-start justify-between gap-8">
-                {/* Left Content */}
                 <div className="flex-1 space-y-6">
                   <div className="flex gap-3" aria-label="Service tags">
-                    <Typography 
-                      as="span" 
-                      size="sm" 
-                      weight="semibold" 
+                    <Typography
+                      as="span"
+                      size="sm"
+                      weight="semibold"
                       className="bg-primary text-white px-4 py-2 rounded-full"
                     >
                       RCMS
                     </Typography>
-                    <Typography 
-                      as="span" 
-                      size="sm" 
-                      weight="semibold" 
+                    <Typography
+                      as="span"
+                      size="sm"
+                      weight="semibold"
                       className="bg-secondary text-white px-4 py-2 rounded-full"
                     >
                       Book a Process
@@ -71,11 +68,9 @@ export default function ClientsPage() {
                   </figure>
                 </div>
 
-                {/* Right Sidebar */}
                 <aside className="w-full lg:w-80 space-y-4" aria-label="Client information and appointment">
                   <AnimatedSection direction="right">
                     <div className="bg-white rounded-lg shadow-md p-6 border-t-4 border-primary text-center">
-                      {/* FIXED: Replaced Building2 with IconFromData */}
                       <IconFromData name="Building2" className="w-16 h-16 text-primary mx-auto mb-4" size={64} />
                       <Typography as="h2" variant="h5" weight="bold">
                         Our Clients
@@ -87,17 +82,16 @@ export default function ClientsPage() {
                   </AnimatedSection>
 
                   <AnimatedSection direction="right" delay={100}>
-                    <div 
+                    <div
                       className="bg-white rounded-lg shadow-md p-6 border-t-4 border-secondary space-y-3"
                       aria-label="Appointment form"
                     >
                       <Typography as="h3" variant="h5" weight="bold">
                         Make An Appointment
                       </Typography>
-                      
+
                       <div className="space-y-2">
                         <div className="flex items-center gap-2 text-sm text-gray-700">
-                          {/* FIXED: Replaced Phone with IconFromData */}
                           <IconFromData name="Phone" className="w-4 h-4 text-secondary" size={16} />
                           <Typography as="span" size="sm">Phone Number</Typography>
                         </div>
@@ -108,7 +102,6 @@ export default function ClientsPage() {
 
                       <div className="space-y-2">
                         <div className="flex items-center gap-2 text-sm text-gray-700">
-                          {/* FIXED: Replaced Calendar with IconFromData */}
                           <IconFromData name="Calendar" className="w-4 h-4 text-secondary" size={16} />
                           <Typography as="span" size="sm">Medical Coding & Billing</Typography>
                         </div>
@@ -117,7 +110,7 @@ export default function ClientsPage() {
                         </Typography>
                       </div>
 
-                      <CustomButton 
+                      <CustomButton
                         fullWidth
                         aria-label="Schedule an appointment"
                       >
@@ -131,8 +124,7 @@ export default function ClientsPage() {
           </Container>
         </section>
 
-        {/* Services Section */}
-        <section 
+        <section
           aria-labelledby="services-heading"
           className="py-16 bg-gray-50 px-3"
         >
@@ -146,14 +138,14 @@ export default function ClientsPage() {
               </Typography>
             </AnimatedSection>
 
-            <div 
+            <div
               className="space-y-8"
               role="list"
               aria-label="Our medical billing services"
             >
               {services.map((service, index) => (
                 <AnimatedSection key={index} direction="left" delay={index * 100}>
-                  <article 
+                  <article
                     className="bg-white rounded-lg shadow-sm p-6 border-l-4 border-secondary"
                     role="listitem"
                   >
@@ -170,8 +162,7 @@ export default function ClientsPage() {
           </Container>
         </section>
 
-        {/* RCM Steps Section */}
-        <section aria-labelledby="rcm-heading" className="py-16 px-3">
+        <section aria-labelledby="rcm-heading" className={sectionBase}>
           <Container>
             <AnimatedSection direction="up">
               <Typography as="h2" id="rcm-heading" variant="h3" weight="bold" align="center" className="mb-4">
@@ -182,18 +173,17 @@ export default function ClientsPage() {
               </Typography>
             </AnimatedSection>
 
-            <div 
+            <div
               className="grid md:grid-cols-2 lg:grid-cols-3 gap-4"
               role="list"
               aria-label="RCM process steps"
             >
               {rcmSteps.map((step, index) => (
                 <AnimatedSection key={index} direction="left" delay={index * 50}>
-                  <div 
+                  <div
                     className="flex items-start gap-3 bg-white p-4 rounded-lg shadow-sm border border-gray-200"
                     role="listitem"
                   >
-                    {/* FIXED: Replaced CheckCircle2 with IconFromData */}
                     <IconFromData name="CheckCircle2" className="w-5 h-5 text-secondary flex-shrink-0 mt-1" size={20} />
                     <Typography as="span" size="sm" className="text-gray-700">
                       {step}
@@ -205,8 +195,7 @@ export default function ClientsPage() {
           </Container>
         </section>
 
-        {/* Why Choose Section */}
-        <section 
+        <section
           aria-labelledby="why-choose-heading"
           className="py-16 bg-primary-deep text-white px-3"
         >
@@ -221,7 +210,7 @@ export default function ClientsPage() {
             </AnimatedSection>
 
             <AnimatedSection direction="left">
-              <div 
+              <div
                 className="rounded-lg p-8 backdrop-blur-sm bg-white/10"
                 aria-label="Benefits of RCM software"
               >
@@ -232,14 +221,13 @@ export default function ClientsPage() {
                   RCM allows a comprehensive range of Medical Billing features to keep the workplace sector of your healthcare organization efficient and profitable.
                 </Typography>
 
-                <div 
+                <div
                   className="grid md:grid-cols-2 gap-4 mb-8"
                   role="list"
                   aria-label="Reasons to choose us"
                 >
                   {whyChoose.map((item, index) => (
                     <div key={index} className="flex items-center gap-3" role="listitem">
-                      {/* FIXED: Replaced CheckCircle2 with IconFromData */}
                       <IconFromData name="CheckCircle2" className="w-5 h-5 text-secondary flex-shrink-0" size={20} />
                       <Typography as="span" size="sm" className="text-white/90">
                         {item}
@@ -256,8 +244,7 @@ export default function ClientsPage() {
           </Container>
         </section>
 
-        {/* Key Points Section */}
-        <section aria-labelledby="key-points-heading" className="py-16 px-3">
+        <section aria-labelledby="key-points-heading" className={sectionBase}>
           <Container>
             <AnimatedSection direction="up">
               <Typography as="h2" id="key-points-heading" variant="h3" weight="bold" align="center" className="mb-4">
@@ -265,18 +252,17 @@ export default function ClientsPage() {
               </Typography>
             </AnimatedSection>
 
-            <div 
+            <div
               className="mt-12 space-y-3"
               role="list"
               aria-label="Key advantages"
             >
               {keyPoints.map((point, index) => (
                 <AnimatedSection key={index} direction="left" delay={index * 50}>
-                  <div 
+                  <div
                     className="flex items-start gap-3 bg-gray-50 p-4 rounded-lg border-l-4 border-secondary"
                     role="listitem"
                   >
-                    {/* FIXED: Replaced CheckCircle2 with IconFromData */}
                     <IconFromData name="CheckCircle2" className="w-5 h-5 text-secondary flex-shrink-0 mt-1" size={20} />
                     <Typography as="span" size="sm" className="text-gray-700">
                       {point}
@@ -288,8 +274,7 @@ export default function ClientsPage() {
           </Container>
         </section>
 
-        {/* Get In Touch Section */}
-        <section 
+        <section
           aria-labelledby="contact-heading"
           className="py-16 px-3 bg-gradient-to-br from-primary-deep via-primary-dark to-primary text-white relative overflow-hidden"
         >
@@ -301,23 +286,23 @@ export default function ClientsPage() {
                 </Typography>
                 <Typography as="p" size="sm" className="opacity-90 text-white max-w-2xl mx-auto">
                   Right Medical Billing experts in United States bring customizable solutions with real experts. Contact us at{' '}
-                  <a 
-                    href="tel:+923087658325" 
+                  <a
+                    href="tel:+923087658325"
                     className="underline font-semibold hover:text-secondary transition-colors focus:outline-none focus:ring-2 focus:ring-white rounded-lg px-1"
                     aria-label="Call us at +92 3087 658 325"
                   >
                     +92 3087 658 325
                   </a>{' '}
                   or{' '}
-                  <a 
-                    href="mailto:info@rightmedicalbilling.com" 
+                  <a
+                    href="mailto:info@rightmedicalbilling.com"
                     className="underline font-semibold hover:text-secondary transition-colors focus:outline-none focus:ring-2 focus:ring-white rounded-lg px-1"
                     aria-label="Email us at info@rightmedicalbilling.com"
                   >
                     info@rightmedicalbilling.com
                   </a>
                 </Typography>
-                <CustomButton 
+                <CustomButton
                   aria-label="Schedule an appointment with our team"
                 >
                   Schedule An Appointment
@@ -325,7 +310,6 @@ export default function ClientsPage() {
               </div>
             </Container>
 
-            {/* Decorative elements */}
             <div className="absolute bottom-0 left-0 w-40 h-40 bg-secondary opacity-10 rounded-tr-full" aria-hidden="true"></div>
             <div className="absolute top-0 right-0 w-40 h-40 bg-secondary opacity-10 rounded-bl-full" aria-hidden="true"></div>
           </AnimatedSection>
@@ -334,5 +318,3 @@ export default function ClientsPage() {
     </>
   );
 }
-
-

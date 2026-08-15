@@ -4,6 +4,7 @@ import { useState, useCallback, ChangeEvent, FormEvent } from 'react';
 import logo from '../assets/logo.webp';
 import { Container, Typography, CustomButton } from './layout';
 import { IconFromData } from '../helper/IconFromData';
+import { iconBtnBase } from '../theme/classes';
 
 export default function Footer() {
   const [email, setEmail] = useState('');
@@ -46,15 +47,15 @@ export default function Footer() {
             </p>
 
             <div className="flex justify-center gap-3">
-              <a href="#" aria-label="Visit our Facebook page" className="icon-btn">
+              <a href="#" aria-label="Visit our Facebook page" className={iconBtnBase}>
                 {/* FIXED: Replaced Facebook with IconFromData */}
                 <IconFromData name="Facebook" size={18} />
               </a>
-              <a href="#" aria-label="Visit our LinkedIn page" className="icon-btn">
+              <a href="#" aria-label="Visit our LinkedIn page" className={iconBtnBase}>
                 {/* FIXED: Replaced Linkedin with IconFromData */}
                 <IconFromData name="Linkedin" size={18} />
               </a>
-              <a href="#" aria-label="Visit our YouTube channel" className="icon-btn">
+              <a href="#" aria-label="Visit our YouTube channel" className={iconBtnBase}>
                 {/* FIXED: Replaced Youtube with IconFromData */}
                 <IconFromData name="Youtube" size={18} />
               </a>

@@ -1,5 +1,6 @@
 import type { ReactNode, HTMLAttributes } from 'react';
 import { mergeClass } from '../../utils/classUtils';
+import { containerBase } from '../../theme/classes';
 import type { ContainerSize } from '../../constants/types';
 
 interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
@@ -33,7 +34,7 @@ export function Container({
   return (
     <div
       className={mergeClass(
-        'mx-auto max-w-7xl',
+        containerBase,
         sizeMap[size],
         flex ? 'flex' : '',
         grid ? 'grid' : '',
