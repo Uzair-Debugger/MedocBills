@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { CustomButton } from './layout/CustomButton';
 import { Icon } from '../utils/lazy-icons';
+import { mergeClass } from '../utils/classUtils';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -76,7 +77,10 @@ const Navbar = () => {
               <li key={item.path}>
                 <Link
                   href={item.path}
-                  className={`font-light transition-colors duration-300 hover:text-primary ${pathname === item.path ? 'text-primary' : ''}`}
+                  className={mergeClass(
+                    'font-light transition-colors duration-300 hover:text-primary',
+                    pathname === item.path ? 'text-primary' : ''
+                  )}
                 >
                   {item.label}
                 </Link>
@@ -107,9 +111,10 @@ const Navbar = () => {
         <div
           ref={mobileMenuRef}
           id="mobile-menu"
-          className={`min-[1150px]:hidden absolute top-full left-0 w-full bg-white shadow-md transition-transform duration-300 ease-in-out ${
+          className={mergeClass(
+            'min-[1150px]:hidden absolute top-full left-0 w-full bg-white shadow-md transition-transform duration-300 ease-in-out',
             menuOpen ? 'translate-y-0 opacity-100' : '-translate-y-5 opacity-0 pointer-events-none'
-          }`}
+          )}
         >
           <ul className="flex flex-col p-4 gap-4">
             {navItems.map((item) => (
@@ -117,7 +122,10 @@ const Navbar = () => {
                 <Link
                   href={item.path}
                   onClick={() => setMenuOpen(false)}
-                  className={`font-light hover:text-primary ${pathname === item.path ? 'text-primary' : ''}`}
+                  className={mergeClass(
+                    'font-light hover:text-primary',
+                    pathname === item.path ? 'text-primary' : ''
+                  )}
                 >
                   {item.label}
                 </Link>

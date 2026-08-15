@@ -3,7 +3,7 @@ import { specialties } from '../constants/data';
 
 const MedicalSpecialties = () => {
   return (
-    <section 
+    <section
       className="py-16 bg-gray-50"
       aria-labelledby="specialties-heading"
     >
@@ -11,13 +11,13 @@ const MedicalSpecialties = () => {
 
         {/* Header */}
         <header className="text-center mb-12">
-          <p className="text-sm font-medium c_green uppercase tracking-wider">
+          <p className="text-sm font-medium text-c_green uppercase tracking-wider">
             We Cover
           </p>
 
-          <h2 
+          <h2
             id="specialties-heading"
-            className="text-3xl font-extrabold maroon mt-2 relative inline-block"
+            className="text-3xl font-extrabold text-maroon mt-2 relative inline-block"
           >
             These Medical Specialties
             <span className="absolute left-1/2 -translate-x-1/2 bottom-0 h-1 bg-secondary w-3/4"></span>

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { mergeClass } from '../utils/classUtils';
+import { sectionBase } from '../theme/classes';
 
 interface AnimatedSectionProps {
   children: ReactNode;
@@ -49,7 +50,7 @@ const AnimatedSection = ({ children, delay = 0, direction = 'left', className = 
   return (
     <section
       ref={sectionRef}
-      className={mergeClass(className)}
+      className={mergeClass(sectionBase, className)}
       style={{
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? 'translate(0)' : getInitialTransform(),

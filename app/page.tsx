@@ -6,6 +6,7 @@ import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import AnimatedSection from '../src/components/AnimatedSection';
 import MedicalSpecialties from '../src/components/MedicalSpecialties';
 import RequestCallBackForm from '../src/components/Reachus';
+import { mergeClass } from '../src/utils/classUtils';
 import { Typography, CustomButton, Container } from '../src/components/layout';
 import {
 
@@ -152,10 +153,10 @@ const Hero = () => {
                   setDirection(index > currentSlide ? 1 : -1);
                   setCurrentSlide(index);
                 }}
-                className={`w-2 h-2 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-primary ${index === currentSlide
-                    ? 'bg-primary w-4'
-                    : 'bg-primary/50 hover:bg-primary/70'
-                  }`}
+                className={mergeClass(
+                  'w-2 h-2 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-primary',
+                  index === currentSlide ? 'bg-primary w-4' : 'bg-primary/50 hover:bg-primary/70'
+                )}
                 aria-label={`Go to slide ${index + 1}`}
                 aria-current={index === currentSlide ? 'true' : 'false'}
                 role="tab"

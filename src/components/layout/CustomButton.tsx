@@ -1,5 +1,6 @@
 import type { ButtonHTMLAttributes } from 'react';
 import { mergeClass } from '../../utils/classUtils';
+import { buttonBase } from '../../theme/classes';
 import type { ButtonVariant } from '../../constants/types';
 
 interface CustomButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -34,7 +35,7 @@ export function CustomButton({
     <button
       {...props}
       className={mergeClass(
-        'inline-flex items-center justify-center font-medium shadow-sm',
+        buttonBase,
         variantClasses[variant],
         sizeClasses[size],
         fullWidth ? 'w-full' : '',

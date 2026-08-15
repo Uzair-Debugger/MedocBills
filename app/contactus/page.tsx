@@ -3,7 +3,8 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import ContactUsPic from '../../src/assets/Hero/contactus.webp';
 import { Container, Typography, CustomButton } from '../../src/components/layout';
-
+import { mergeClass } from '../../src/utils/classUtils';
+import { sectionBase } from '../../src/theme/classes';
 
 const ContactUs = () => {
     const [formData, setFormData] = useState({
@@ -47,21 +48,20 @@ const ContactUs = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
+
         if (!validateForm()) return;
-        
+
         setIsSubmitting(true);
         try {
-            // Simulate API submission
             await new Promise(resolve => setTimeout(resolve, 1500));
             setSubmitStatus({ type: 'success', message: 'Thank you! We will contact you shortly.' });
-            setFormData({ 
-                firstName: '', 
-                lastName: '', 
-                email: '', 
-                phoneNo: '', 
+            setFormData({
+                firstName: '',
+                lastName: '',
+                email: '',
+                phoneNo: '',
                 countryCode: 'USA',
-                message: '' 
+                message: ''
             });
             setTimeout(() => setSubmitStatus(null), 5000);
         } catch (error) {
@@ -72,32 +72,30 @@ const ContactUs = () => {
         }
     };
 
-    // Memoize contact info to avoid re-renders
     const contactInfo = useMemo(() => [
-        { 
-            icon: 'phone', 
-            label: 'Call Us', 
+        {
+            icon: 'phone',
+            label: 'Call Us',
             value: '+1 (929) 621 6059',
             href: 'tel:+19296216059',
             ariaLabel: 'Call our support team'
         },
-        { 
-            icon: 'mail', 
-            label: 'Email Us', 
+        {
+            icon: 'mail',
+            label: 'Email Us',
             value: 'support@medstates.com',
             href: 'mailto:support@medstates.com',
             ariaLabel: 'Send us an email'
         },
-        { 
-            icon: 'location', 
-            label: 'Visit Us', 
+        {
+            icon: 'location',
+            label: 'Visit Us',
             value: 'MedocBills HQ',
             href: null,
             ariaLabel: 'Our office location'
         },
     ], []);
 
-    // Schema markup for organization
     const organizationSchema = {
         "@context": "https://schema.org",
         "@type": "MedicalOrganization",
@@ -122,18 +120,13 @@ const ContactUs = () => {
 
     return (
         <>
-            
-
-            {/* FIXED: Added explicit width/height and preload for background image */}
             <section
                 aria-labelledby="contact-heading"
                 className="min-h-screen flex items-center justify-center bg-cover bg-center relative"
                 style={{ backgroundImage: `url(${ContactUsPic.src})` }}
             >
-                {/* Preload the background image for better performance */}
                 <link rel="preload" as="image" href={ContactUsPic.src} />
-                
-                {/* Overlay for gradient */}
+
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/90 to-secondary/90" aria-hidden="true"></div>
 
                 <Container className="relative z-10 flex flex-col items-center justify-center py-16 text-center w-full">
@@ -165,12 +158,12 @@ const ContactUs = () => {
                         </Typography>
                     </div>
 
-                    {/* Status Alert */}
                     {submitStatus && (
                         <Container
-                            className={`w-full mb-4 p-4 rounded-md transition-colors ${
+                            className={mergeClass(
+                                'w-full mb-4 p-4 rounded-md transition-colors text-white',
                                 submitStatus.type === 'success' ? 'bg-green-500/90' : 'bg-red-500/90'
-                            } text-white`}
+                            )}
                             role="alert"
                             aria-live="polite"
                         >
@@ -180,11 +173,10 @@ const ContactUs = () => {
                         </Container>
                     )}
 
-                    {/* Form Section */}
                     <Container className="w-full md:w-[600px] py-6 px-3">
-                        <form 
-                            onSubmit={handleSubmit} 
-                            className="space-y-6" 
+                        <form
+                            onSubmit={handleSubmit}
+                            className="space-y-6"
                             noValidate
                             aria-label="Contact form"
                         >
@@ -254,10 +246,10 @@ const ContactUs = () => {
                                         className="bg-transparent text-sm rounded-l-xl px-4 py-3 focus:outline-none cursor-pointer font-medium"
                                         aria-label="Select Country Code"
                                     >
-                                        <option value="USA">ðŸ‡ºðŸ‡¸ USA (+1)</option>
-                                        <option value="UK">ðŸ‡¬ðŸ‡§ UK (+44)</option>
-                                        <option value="CA">ðŸ‡¨ðŸ‡¦ CA (+1)</option>
-                                        <option value="PAK">ðŸ‡µðŸ‡° PAK (+92)</option>
+                                        <option value="USA">USA (+1)</option>
+                                        <option value="UK">UK (+44)</option>
+                                        <option value="CA">CA (+1)</option>
+                                        <option value="PAK">PAK (+92)</option>
                                     </select>
                                     <input
                                         required
@@ -292,8 +284,8 @@ const ContactUs = () => {
                                 ></textarea>
                             </div>
 
-                            <CustomButton 
-                                type="submit" 
+                            <CustomButton
+                                type="submit"
                                 className="w-full"
                                 disabled={isSubmitting}
                                 aria-label={isSubmitting ? "Sending message..." : "Send message"}
@@ -302,19 +294,18 @@ const ContactUs = () => {
                             </CustomButton>
                         </form>
 
-                        {/* Contact Info */}
-                        <Container 
+                        <Container
                             className="mt-10 pt-8 border-t border-white/30 grid grid-cols-1 md:grid-cols-3 gap-6 text-white text-center"
                             aria-label="Contact information"
                         >
                             {contactInfo.map((info, idx) => (
                                 <div key={idx} className="flex flex-col items-center">
                                     <div className="w-12 h-12 bg-secondary rounded-full flex items-center justify-center mb-3">
-                                        <svg 
-                                            className="w-6 h-6" 
-                                            fill="none" 
-                                            stroke="currentColor" 
-                                            viewBox="0 0 24 24" 
+                                        <svg
+                                            className="w-6 h-6"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
                                             aria-hidden="true"
                                         >
                                             <path
@@ -335,7 +326,7 @@ const ContactUs = () => {
                                         {info.label}
                                     </Typography>
                                     {info.href ? (
-                                        <a 
+                                        <a
                                             href={info.href}
                                             className="text-white/80 hover:text-white transition-colors text-sm focus:outline-none focus:ring-2 focus:ring-white rounded-lg px-2 py-1"
                                             aria-label={info.ariaLabel}
@@ -358,7 +349,3 @@ const ContactUs = () => {
 };
 
 export default ContactUs;
-
-
-
-

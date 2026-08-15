@@ -1,0 +1,13 @@
+export const sectionBase = 'py-16 px-6';
+export const headingBase = 'text-3xl font-bold tracking-tight';
+export const paragraphBase = 'text-base leading-relaxed';
+export const buttonBase = 'inline-flex items-center justify-center font-medium shadow-sm';
+export const inputBase = 'w-full rounded-md px-4 py-3 focus:outline-none focus:ring-2';
+export const cardBase = 'bg-white rounded-lg shadow-sm border border-gray-200';
+export const containerBase = 'mx-auto max-w-7xl';
+export const navBase = 'flex items-center justify-between';
+export const linkBase = 'font-light transition-colors duration-300';
+export const flexCenter = 'flex items-center justify-center';
+export const flexColCenter = 'flex flex-col items-center justify-center';
+export const textCenter = 'text-center';
+export const iconBtnBase = 'flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 text-gray-600 hover:bg-primary hover:text-white transition-colors';

@@ -19,6 +19,27 @@
   --color-teal-brand: #00a99d;
   --color-primary-rgb: 139, 21, 56;
   --color-secondary-rgb: 27, 124, 140;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+  --color-red-500: #ef4444;
+  --color-red-600: #dc2626;
+  --color-red-300: #fca5a5;
+  --color-blue-500: #3b82f6;
+  --color-green-500: #22c55e;
+  --color-teal-50: #f0fdfa;
+  --color-cyan-50: #ecfeff;
+  --color-c_green: #10b981;
+  --color-maroon: #8B1538;
 }
 
 @theme {
@@ -38,9 +59,38 @@
   --color-cyan-light: var(--color-cyan-light);
   --color-primary-medium: var(--color-primary-medium);
   --color-teal-brand: var(--color-teal-brand);
+  --color-white: var(--color-white);
+  --color-black: var(--color-black);
+  --color-gray-50: var(--color-gray-50);
+  --color-gray-100: var(--color-gray-100);
+  --color-gray-200: var(--color-gray-200);
+  --color-gray-300: var(--color-gray-300);
+  --color-gray-400: var(--color-gray-400);
+  --color-gray-500: var(--color-gray-500);
+  --color-gray-600: var(--color-gray-600);
+  --color-gray-700: var(--color-gray-700);
+  --color-gray-800: var(--color-gray-800);
+  --color-gray-900: var(--color-gray-900);
+  --color-red-500: var(--color-red-500);
+  --color-red-600: var(--color-red-600);
+  --color-red-300: var(--color-red-300);
+  --color-blue-500: var(--color-blue-500);
+  --color-green-500: var(--color-green-500);
+  --color-teal-50: var(--color-teal-50);
+  --color-cyan-50: var(--color-cyan-50);
+  --color-c_green: var(--color-c_green);
+  --color-maroon: var(--color-maroon);
 }
 
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
+}
+
+.icon-btn {
+  @apply flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 text-gray-600 hover:bg-primary hover:text-white transition-colors;
+}
+
+.input {
+  @apply w-full rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-secondary bg-white border border-white text-gray-800 placeholder-gray-500;
 }
