@@ -39,6 +39,7 @@ export default function Footer() {
               width={182}
               height={48}
               priority
+              sizes="182px"
             />
 
             <p className="font-light text-sm mb-5">

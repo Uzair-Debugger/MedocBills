@@ -1,6 +1,8 @@
 ﻿'use client';
 
 import React, { useEffect, useState, useRef, useCallback } from 'react';
+import { motion, useMotionValue, useTransform, AnimatePresence, type Variants, animate } from 'framer-motion';
+import Image from 'next/image';
 import type { CounterProps } from '../../src/constants/types';
 import { servicesData, statsData, doctorsData, faqs } from '../../src/constants/data';
 import { Container, Typography, CustomButton } from '../../src/components/layout';
@@ -10,32 +12,31 @@ import { IconFromData } from '../../src/helper/IconFromData';
 
 // â”€â”€â”€ Counter Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const Counter = ({ value, duration = 2000, suffix = '' }: CounterProps) => {
-  const [count, setCount] = useState(0);
   const ref = useRef<HTMLDivElement | null>(null);
-  const observer = useRef<IntersectionObserver | null>(null);
+  const count = useMotionValue(0);
+  const [display, setDisplay] = useState(0);
 
   useEffect(() => {
-    observer.current = new IntersectionObserver(([entry]) => {
+    const unsubscribe = count.on('change', (latest) => setDisplay(Math.floor(latest)));
+    return unsubscribe;
+  }, [count]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {
-        let start: number | null = null;
-        const step = (timestamp: number) => {
-          if (!start) start = timestamp;
-          const progress = timestamp - start;
-          setCount(Math.floor(Math.min(progress / duration, 1) * value));
-          if (progress < duration) window.requestAnimationFrame(step);
-        };
-        window.requestAnimationFrame(step);
-        observer.current?.disconnect();
+        animate(count, value, { duration: duration / 1000, ease: 'easeOut' });
+        observer.disconnect();
       }
     });
-    if (ref.current) observer.current.observe(ref.current);
-    return () => observer.current?.disconnect();
-  }, [value, duration]);
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [value, duration, count]);
 
   return (
-    <div ref={ref} aria-live="polite" aria-label={`${count}${suffix}`}>
-      {count}{suffix}
-    </div>
+    <motion.span ref={ref} aria-live="polite" aria-label={`${value}${suffix}`}>
+      {display}
+      {suffix}
+    </motion.span>
   );
 };
 
@@ -105,15 +106,18 @@ interface DoctorCardProps {
 const DoctorCard = ({ doctor }: DoctorCardProps) => (
   <article className="w-full flex-shrink-0">
     <div className="bg-white max-sm:max-w-[400px] m-auto rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition-transform duration-200">
-      <div className="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 mx-auto">
-        <div className="">
-          <img 
-            src={doctor.image} 
-            alt={`Dr. ${doctor.name}, ${doctor.specialty}`}
-            className="w-full h-full object-cover"
-            loading="lazy"
-          />
-        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 mx-auto">
+          <div className="">
+            <Image
+              src={doctor.image}
+              alt={`Dr. ${doctor.name}, ${doctor.specialty}`}
+              className="w-full h-full object-cover"
+              loading="lazy"
+              width={400}
+              height={500}
+              sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+            />
+          </div>
         <div className="p-4 md:col-span-2 flex flex-col gap-5 justify-center bg-gradient-to-br from-white to-teal-50">
           <div className="mb-4">
             {/* FIXED: Replaced Heart with IconFromData */}

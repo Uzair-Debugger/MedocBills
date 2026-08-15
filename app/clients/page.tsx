@@ -1,9 +1,10 @@
 ﻿'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { medicalBusinessSchema, heroParagraphs } from '../../src/constants/data';
 import { services, rcmSteps, whyChoose, keyPoints } from '../../src/constants/data';
-import { AnimatedSection } from '../../src/components/Animation';
+import AnimatedSection from '../../src/components/AnimatedSection';
 import { Typography } from '../../src/components/layout';
 import { Container } from '../../src/components/layout/Container';
 import { CustomButton } from '../../src/components/layout';
@@ -56,11 +57,14 @@ export default function ClientsPage() {
                   </div>
 
                   <figure>
-                    <img
+                    <Image
                       src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=500&fit=crop"
                       alt="Healthcare professional reviewing medical records and billing documentation"
                       loading="lazy"
                       className="rounded-lg shadow-lg w-full mt-6"
+                      width={800}
+                      height={500}
+                      sizes="(max-width: 768px) 100vw, 50vw"
                     />
                     <figcaption className="sr-only">
                       Healthcare professional managing medical billing and revenue cycle management

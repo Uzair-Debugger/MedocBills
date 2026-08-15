@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { organizationSchema, pillars, stats, solutions } from '../../src/constants/data';
-import { AnimatedSection } from '../../src/components/Animation';
+import AnimatedSection from '../../src/components/AnimatedSection';
 import { Container, Typography, CustomButton } from '../../src/components/layout';
 import { mergeClass } from '../../src/utils/classUtils';
 import { sectionBase } from '../../src/theme/classes';

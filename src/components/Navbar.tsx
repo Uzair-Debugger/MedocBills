@@ -67,6 +67,7 @@ const Navbar = () => {
             width={182}
             height={48}
             priority
+            sizes="182px"
           />
         </Link>
 

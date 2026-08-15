@@ -125,7 +125,6 @@ const ContactUs = () => {
                 className="min-h-screen flex items-center justify-center bg-cover bg-center relative"
                 style={{ backgroundImage: `url(${ContactUsPic.src})` }}
             >
-                <link rel="preload" as="image" href={ContactUsPic.src} />
 
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/90 to-secondary/90" aria-hidden="true"></div>
 

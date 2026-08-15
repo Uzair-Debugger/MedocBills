@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import { iconComponents, IconName } from '../utils/icon-map';
 
 interface IconFromDataProps {
@@ -15,9 +14,5 @@ export const IconFromData = ({ name, className = "w-6 h-6", size = 24 }: IconFro
     return null;
   }
   
-  return (
-    <Suspense fallback={<div className={className} style={{ width: size, height: size }} />}>
-      <IconComponent className={className} size={size} />
-    </Suspense>
-  );
+  return <IconComponent className={className} size={size} />;
 };

@@ -125,14 +125,15 @@ const Hero = () => {
                   {/* Image */}
                   <div className="w-full md:w-1/2 flex justify-center items-center">
                     <div className="w-full max-w-md md:max-w-none py-10">
-                      <Image
+                    <Image
                         src={slides[currentSlide].image}
                         alt={`Healthcare solution illustration: ${slides[currentSlide].title}`}
                         className="shadow-lg w-full h-[280px] sm:h-[350px] md:h-[450px] lg:h-[500px] object-cover rounded-lg"
                         width={800}
                         height={500}
                         priority
-                      />
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
+                    />
                     </div>
                   </div>
                 </div>

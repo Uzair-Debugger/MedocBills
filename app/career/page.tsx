@@ -1,6 +1,7 @@
 ﻿'use client';
 
 import React, { useState, useMemo, useCallback } from 'react';
+import Link from 'next/link';
 import { jobs } from '../../src/constants/data';
 import { Container, Typography } from '../../src/components/layout';
 import { jobPostingSchema } from '../../src/constants/data';
@@ -113,19 +114,11 @@ export default function CareerPage() {
               aria-label="Available job positions"
             >
               {filteredJobs.map((job) => (
-                <article
+                <Link
                   key={job.id}
+                  href={`/careers/${job.id}`}
                   role="listitem"
-                  className="group border-2 border-gray-200 rounded-lg p-6 cursor-pointer bg-white hover:scale-105 hover:bg-gradient-to-br hover:from-primary-dark hover:to-primary-deep hover:border-primary hover:shadow-2xl transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      window.location.href = `/careers/${job.id}`;
-                    }
-                  }}
-                  onClick={() => {
-                    window.location.href = `/careers/${job.id}`;
-                  }}
+                  className="group block border-2 border-gray-200 rounded-lg p-6 cursor-pointer bg-white hover:scale-105 hover:bg-gradient-to-br hover:from-primary-dark hover:to-primary-deep hover:border-primary hover:shadow-2xl transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                 >
                   <Typography
                     as="h2"
@@ -185,7 +178,7 @@ export default function CareerPage() {
                       Apply Now
                     </Typography>
                   </div>
-                </article>
+                </Link>
               ))}
             </div>
 
