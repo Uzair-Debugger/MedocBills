@@ -1,13 +1,25 @@
 ﻿'use client';
 
 import React, { useEffect, useState, useRef, useCallback } from 'react';
-import { motion, useMotionValue, useTransform, AnimatePresence, type Variants, animate } from 'framer-motion';
+import { motion, useMotionValue, animate } from 'framer-motion';
 import Image from 'next/image';
 import type { CounterProps } from '../../src/constants/types';
 import { servicesData, statsData, doctorsData, faqs } from '../../src/constants/data';
 import { Container, Typography, CustomButton } from '../../src/components/layout';
 import { mergeClass } from '../../src/utils/classUtils';
 import { IconFromData } from '../../src/helper/IconFromData';
+import { SITE_CONFIG, faqPageSchema } from '../../src/constants/seo';
+import JsonLd from '../../src/components/JsonLd';
+
+const servicesWebPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Medical Billing & RCM Services | MedocBills',
+  description:
+    'Comprehensive healthcare billing solutions including medical billing, coding, credentialing, compliance support, and telehealth billing.',
+  url: `${SITE_CONFIG.url}/services`,
+  inLanguage: 'en-US',
+};
 
 
 // === Counter Component ======================
@@ -308,20 +320,6 @@ const Services = () => {
     setOpenFAQ((prev) => (prev === index ? null : index));
   }, []);
 
-  // Schema markup for FAQ
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": faqs.map(faq => ({
-      "@type": "Question",
-      "name": faq.question,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": faq.answer
-      }
-    }))
-  };
-
   // Map stats icons to names
   const statsIconNames = ['Activity', 'Users', 'Clock', 'Award'];
 
@@ -422,6 +420,9 @@ const Services = () => {
           </div>
         </Container>
       </section>
+
+      <JsonLd data={faqPageSchema} />
+      <JsonLd data={servicesWebPageSchema} />
     </>
   );
 };

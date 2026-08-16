@@ -3,7 +3,7 @@
     "version": "0.0.0",
     "private": true,
     "scripts": {
-        "lint": "next lint",
+        "lint": "eslint . --ext .ts,.tsx",
         "build": "next build",
         "dev": "next dev",
         "start": "next start"

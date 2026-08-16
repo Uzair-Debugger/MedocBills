@@ -4,7 +4,18 @@ import React, { useState, useMemo, useCallback } from 'react';
 import ContactUsPic from '../../src/assets/Hero/contactus.webp';
 import { Container, Typography, CustomButton } from '../../src/components/layout';
 import { mergeClass } from '../../src/utils/classUtils';
-import { sectionBase } from '../../src/theme/classes';
+import { SITE_CONFIG, localBusinessSchema } from '../../src/constants/seo';
+import JsonLd from '../../src/components/JsonLd';
+
+const contactWebPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Contact Us | MedocBills',
+  description:
+    'Contact MedocBills for professional medical billing services and healthcare revenue cycle management.',
+  url: `${SITE_CONFIG.url}/contactus`,
+  inLanguage: 'en-US',
+};
 
 const ContactUs = () => {
     const [formData, setFormData] = useState({
@@ -76,47 +87,25 @@ const ContactUs = () => {
         {
             icon: 'phone',
             label: 'Call Us',
-            value: '+1 (929) 621 6059',
-            href: 'tel:+19296216059',
+            value: SITE_CONFIG.contact.phoneDisplay,
+            href: SITE_CONFIG.contact.phoneE164,
             ariaLabel: 'Call our support team'
         },
         {
             icon: 'mail',
             label: 'Email Us',
-            value: 'support@medstates.com',
-            href: 'mailto:support@medstates.com',
+            value: SITE_CONFIG.contact.email,
+            href: `mailto:${SITE_CONFIG.contact.email}`,
             ariaLabel: 'Send us an email'
         },
         {
             icon: 'location',
             label: 'Visit Us',
-            value: 'MedocBills HQ',
+            value: SITE_CONFIG.contact.address.full,
             href: null,
             ariaLabel: 'Our office location'
         },
     ], []);
-
-    const organizationSchema = {
-        "@context": "https://schema.org",
-        "@type": "MedicalOrganization",
-        "name": "MedocBills",
-        "url": "https://www.medocbills.com",
-        "logo": "https://www.medocbills.com/logo.png",
-        "contactPoint": [
-            {
-                "@type": "ContactPoint",
-                "telephone": "+1 (929) 621 6059",
-                "contactType": "customer service",
-                "email": "support@medstates.com",
-                "availableLanguage": ["English"]
-            }
-        ],
-        "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "New York",
-            "addressCountry": "US"
-        }
-    };
 
     return (
         <>
@@ -343,6 +332,9 @@ const ContactUs = () => {
                     </Container>
                 </Container>
             </section>
+
+            <JsonLd data={localBusinessSchema} />
+            <JsonLd data={contactWebPageSchema} />
         </>
     );
 };

@@ -21,6 +21,18 @@ import {
 } from '../src/constants/data';
 import { PersonSVG } from '../src/constants/icons';
 import { IconFromData } from '../src/helper/IconFromData';
+import { SITE_CONFIG } from '../src/constants/seo';
+import JsonLd from '../src/components/JsonLd';
+
+const homeWebPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'MedocBills - Medical Billing & RCM Services',
+  description:
+    'MedocBills offers professional medical billing services, claim management, and healthcare revenue solutions.',
+  url: SITE_CONFIG.url,
+  inLanguage: 'en-US',
+};
 
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -31,11 +43,6 @@ const Hero = () => {
   const goToNextSlide = useCallback(() => {
     setDirection(1);
     setCurrentSlide((prev) => (prev + 1) % slides.length);
-  }, []);
-
-  const goToPrevSlide = useCallback(() => {
-    setDirection(-1);
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   }, []);
 
   const goToNextTestimonial = useCallback(() => {
@@ -74,9 +81,6 @@ const Hero = () => {
       },
     }),
   };
-
-  const navButtonClasses =
-    'absolute top-1/2 -translate-y-1/2 z-20 p-2 sm:p-3 rounded-[2px] bg-primary text-white hover:bg-primary-dark transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2';
 
   return (
     <section className="flex flex-col items-center justify-center">
@@ -132,7 +136,7 @@ const Hero = () => {
                         className="shadow-lg w-full h-[280px] sm:h-[350px] md:h-[450px] lg:h-[500px] object-cover rounded-lg"
                         width={800}
                         height={500}
-                        priority
+                        priority={currentSlide === 0}
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
                       />
                     </div>
@@ -342,7 +346,7 @@ const Hero = () => {
                   animate="center"
                   exit="exit"
                 >
-                  "{testimonials[currentTestimonial].text}"
+                  {`"${testimonials[currentTestimonial].text}"`}
                 </motion.div>
               </AnimatePresence>
             </div>
@@ -373,17 +377,19 @@ const Hero = () => {
             <Typography as="span" variant="h5" color="white" className="mt-3 sm:mt-4 sm:text-xl font-bold">
               {testimonials[currentTestimonial].name}
             </Typography>
-            {(testimonials[currentTestimonial] as any).role && (
-              <Typography as="span" variant="p" color="white" className="mt-1 text-sm opacity-90">
-                {(testimonials[currentTestimonial] as any).role}
-              </Typography>
-            )}
+             {(testimonials[currentTestimonial].role) && (
+               <Typography as="span" variant="p" color="white" className="mt-1 text-sm opacity-90">
+                 {testimonials[currentTestimonial].role}
+               </Typography>
+             )}
           </div>
         </div>
       </section>
 
       {/* Callback Form */}
       <RequestCallBackForm />
+
+      <JsonLd data={homeWebPageSchema} />
     </section>
   );
 };

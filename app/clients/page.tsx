@@ -2,16 +2,27 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { medicalBusinessSchema, heroParagraphs } from '../../src/constants/data';
+import { heroParagraphs } from '../../src/constants/data';
 import { services, rcmSteps, whyChoose, keyPoints } from '../../src/constants/data';
+import { SITE_CONFIG, medicalBusinessSchema } from '../../src/constants/seo';
+import JsonLd from '../../src/components/JsonLd';
 import AnimatedSection from '../../src/components/AnimatedSection';
 import AnimatedCard from '../../src/components/AnimatedCard';
 import { Typography } from '../../src/components/layout';
 import { Container } from '../../src/components/layout/Container';
 import { CustomButton } from '../../src/components/layout';
 import { IconFromData } from '../../src/helper/IconFromData';
-import { mergeClass } from '../../src/utils/classUtils';
 import { sectionBase } from '../../src/theme/classes';
+
+const clientsWebPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Healthcare Systems - Medical Billing Services | MedocBills',
+  description:
+    'MedocBills provides comprehensive medical billing services to healthcare systems, hospitals, and clinics nationwide.',
+  url: `${SITE_CONFIG.url}/clients`,
+  inLanguage: 'en-US',
+};
 
 export default function ClientsPage() {
 
@@ -111,7 +122,7 @@ export default function ClientsPage() {
                           <Typography as="span" size="sm">Medical Coding & Billing</Typography>
                         </div>
                         <Typography as="p" size="sm" className="text-gray-600">
-                          Leave us a message and we'll get back to you
+                          Leave us a message and we&apos;ll get back to you
                         </Typography>
                       </div>
 
@@ -207,7 +218,7 @@ export default function ClientsPage() {
           <Container>
             <AnimatedSection direction="up">
               <Typography as="h2" id="why-choose-heading" variant="h3" weight="bold" align="center" className="mb-4 text-secondary">
-                RCM Software's Right Medical Billing Supports
+                RCM Software&apos;s Right Medical Billing Supports
               </Typography>
               <Typography as="p" size="sm" align="center" className="mb-12 max-w-4xl mx-auto text-white/80">
                 RCM provides an excellent benefit of Medical Billing Process. Every healthcare system software is designed to allow frameworks with electronic billing, receiving, and efficient coding.
@@ -290,22 +301,22 @@ export default function ClientsPage() {
                   Get In Touch
                 </Typography>
                 <Typography as="p" size="sm" className="opacity-90 text-white max-w-2xl mx-auto">
-                  Right Medical Billing experts in United States bring customizable solutions with real experts. Contact us at{' '}
-                  <a
-                    href="tel:+923087658325"
-                    className="underline font-semibold hover:text-secondary transition-colors focus:outline-none focus:ring-2 focus:ring-white rounded-lg px-1"
-                    aria-label="Call us at +92 3087 658 325"
-                  >
-                    +92 3087 658 325
-                  </a>{' '}
-                  or{' '}
-                  <a
-                    href="mailto:info@rightmedicalbilling.com"
-                    className="underline font-semibold hover:text-secondary transition-colors focus:outline-none focus:ring-2 focus:ring-white rounded-lg px-1"
-                    aria-label="Email us at info@rightmedicalbilling.com"
-                  >
-                    info@rightmedicalbilling.com
-                  </a>
+                   MedocBills experts in United States bring customizable solutions with real experts. Contact us at{' '}
+                   <a
+                     href={SITE_CONFIG.contact.phoneE164}
+                     className="underline font-semibold hover:text-secondary transition-colors focus:outline-none focus:ring-2 focus:ring-white rounded-lg px-1"
+                     aria-label={`Call us at ${SITE_CONFIG.contact.phoneDisplay}`}
+                   >
+                     {SITE_CONFIG.contact.phone}
+                   </a>{' '}
+                   or{' '}
+                   <a
+                     href={`mailto:${SITE_CONFIG.contact.email}`}
+                     className="underline font-semibold hover:text-secondary transition-colors focus:outline-none focus:ring-2 focus:ring-white rounded-lg px-1"
+                     aria-label={`Email us at ${SITE_CONFIG.contact.email}`}
+                   >
+                     {SITE_CONFIG.contact.email}
+                   </a>
                 </Typography>
                 <CustomButton
                   aria-label="Schedule an appointment with our team"
@@ -320,6 +331,8 @@ export default function ClientsPage() {
           </AnimatedSection>
         </section>
       </div>
+      <JsonLd data={medicalBusinessSchema} />
+      <JsonLd data={clientsWebPageSchema} />
     </>
   );
 }
