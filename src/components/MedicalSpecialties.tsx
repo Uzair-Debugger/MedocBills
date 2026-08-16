@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import SpecialtyCard from './SpecialtyCard';
 import { specialties } from '../constants/data';
 
@@ -31,7 +32,7 @@ const MedicalSpecialties = () => {
               <SpecialtyCard
                 title={specialty.title}
                 icon={specialty.icon}
-                href={`/specialties/${specialty.title.toLowerCase().replace(/\s+/g, '-')}`}
+                 href="/services"
               />
             </li>
           ))}
@@ -39,12 +40,12 @@ const MedicalSpecialties = () => {
 
         {/* CTA */}
         <div className="text-center mt-12">
-          <a
-            href="/"
+          <Link
+            href="/services"
             className="inline-block px-8 py-3 text-base font-medium rounded-md text-white bg-primary hover:bg-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary transition shadow-lg"
           >
             View All Specialties
-          </a>
+          </Link>
         </div>
       </div>
     </section>

@@ -1,4 +1,4 @@
-﻿import React, { ReactNode } from 'react';
+﻿import type { ReactNode } from 'react';
 import type { StaticImageData } from 'next/image';
 import Image1 from '../assets/Hero/1.webp'
 import Image2 from '../assets/Hero/2.webp'
@@ -124,10 +124,10 @@ export const services = [
 ];
 
 export const testimonials = [
-  { name: "Family Practice, Texas", text: "MedocBills has completely transformed our billing process. Our claim approvals are faster, and denials have dropped noticeably. Highly recommended!" },
-  { name: "Pediatrics Clinic, Florida", text: "Their team is responsive, accurate, and easy to work with. We finally have clear visibility into our revenue cycle." },
-  { name: "Specialty Clinic, California", text: "Outsourcing to MedocBills has saved us so much time. Our collections improved within the first few months." },
-  { name: "Internal Medicine Practice, New York", text: "Professional, dependable, and detail-oriented. Their billing support allows us to focus fully on patient care." }
+  { name: "Family Practice, Texas", role: "Practice Manager", text: "MedocBills has completely transformed our billing process. Our claim approvals are faster, and denials have dropped noticeably. Highly recommended!" },
+  { name: "Pediatrics Clinic, Florida", role: "Clinic Director", text: "Their team is responsive, accurate, and easy to work with. We finally have clear visibility into our revenue cycle." },
+  { name: "Specialty Clinic, California", role: "Revenue Director", text: "Outsourcing to MedocBills has saved us so much time. Our collections improved within the first few months." },
+  { name: "Internal Medicine Practice, New York", role: "Practice Owner", text: "Professional, dependable, and detail-oriented. Their billing support allows us to focus fully on patient care." }
 ];
 
 export const testimonialVariants = {
