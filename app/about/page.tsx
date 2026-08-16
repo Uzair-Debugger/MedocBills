@@ -1,7 +1,9 @@
 ﻿'use client';
 
 import React from 'react';
-import { organizationSchema, pillars, stats, solutions } from '../../src/constants/data';
+import { pillars, stats, solutions } from '../../src/constants/data';
+import { SITE_CONFIG, organizationSchema as orgSchema } from '../../src/constants/seo';
+import JsonLd from '../../src/components/JsonLd';
 import AnimatedSection from '../../src/components/AnimatedSection';
 import AnimatedCard from '../../src/components/AnimatedCard';
 import { Container, Typography, CustomButton } from '../../src/components/layout';
@@ -9,6 +11,15 @@ import { mergeClass } from '../../src/utils/classUtils';
 import { sectionBase } from '../../src/theme/classes';
 import { IconFromData } from '../../src/helper/IconFromData';
 
+const aboutWebPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'About Us | MEDOCBILLS LLC',
+  description:
+    'MEDOCBILLS LLC is a premier provider of comprehensive healthcare revenue cycle management, medical billing, and digital marketing services.',
+  url: `${SITE_CONFIG.url}/about`,
+  inLanguage: 'en-US',
+};
 
 export default function AboutUs() {
 
@@ -35,7 +46,7 @@ export default function AboutUs() {
               </Typography>
               <Typography as="p" size="sm" className="leading-relaxed text-white/90">
                 MEDOCBILLS LLC is a premier provider of comprehensive business solutions, specializing in Business Process Outsourcing (BPO), expert healthcare revenue cycle management (RCM), and results-driven digital marketing services.
-                Established in 2025, MEDOCBILLS LLC was founded on the principle of helping businessesespecially in the complex healthcare sectorto not just survive, but grow and thrive in the digital age. Our dedicated team of experienced and passionate professionals is committed to delivering the highest level of service and support, ensuring our clients overcome operational challenges and achieve their strategic goals.
+                Established in 2025, MEDOCBILLS LLC was founded on the principle of helping businesses especially in the complex healthcare sector to not just survive, but grow and thrive in the digital age. Our dedicated team of experienced and passionate professionals is committed to delivering the highest level of service and support, ensuring our clients overcome operational challenges and achieve their strategic goals.
               </Typography>
             </AnimatedSection>
           </Container>
@@ -59,7 +70,7 @@ export default function AboutUs() {
                   </Typography>
                   <Typography as="p" size="sm" className="text-gray-600 leading-relaxed mb-4">
                     <strong className="font-semibold">A Message from Our Founder & CEO!</strong><br />
-                    At MedocBills LLC, we firmly believe that every organization holds immense potential for success. That's why we are dedicated to providing the highest quality outsourced business services, backed by a team of skilled and passionate experts. We specialize in solutions ranging from cutting-edge medical billing and RCM to impactful digital marketing and branding. Our core valuesInnovation, Efficiency, and Customer Satisfactionguide everything we do. We are proud that our clients trust us to manage their critical, non-core tasks, enabling them to focus on their core competencies and patient care. Our ultimate goal is to reduce your workload and deliver outstanding outcomes that consistently exceed your expectations.
+                    At MedocBills LLC, we firmly believe that every organization holds immense potential for success. That&apos;s why we are dedicated to providing the highest quality outsourced business services, backed by a team of skilled and passionate experts. We specialize in solutions ranging from cutting-edge medical billing and RCM to impactful digital marketing and branding. Our core values — Innovation, Efficiency, and Customer Satisfaction — guide everything we do. We are proud that our clients trust us to manage their critical, non-core tasks, enabling them to focus on their core competencies and patient care. Our ultimate goal is to reduce your workload and deliver outstanding outcomes that consistently exceed your expectations.
                   </Typography>
                   <Typography as="p" weight="semibold" className="text-gray-800">
                     Muhammad Younas Khan, Founder & CEO, MEDOCBILLS LLC
@@ -218,7 +229,7 @@ export default function AboutUs() {
                 className="bg-transparent border-2 border-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-gray-900 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-900"
                 aria-label="Start your project with MedocBills"
               >
-                Let's Start Together â†’
+                Let&apos;s Start Together →
               </CustomButton>
             </AnimatedSection>
 
@@ -228,6 +239,8 @@ export default function AboutUs() {
           </Container>
         </section>
       </main>
+      <JsonLd data={orgSchema} />
+      <JsonLd data={aboutWebPageSchema} />
     </>
   );
 }

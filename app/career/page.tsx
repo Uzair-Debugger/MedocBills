@@ -3,11 +3,21 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import Link from 'next/link';
 import { jobs } from '../../src/constants/data';
+import { SITE_CONFIG, jobPostingSchema } from '../../src/constants/seo';
+import JsonLd from '../../src/components/JsonLd';
 import { Container, Typography } from '../../src/components/layout';
-import { jobPostingSchema } from '../../src/constants/data';
 import { IconFromData } from '../../src/helper/IconFromData';
-import { mergeClass } from '../../src/utils/classUtils';
 import { sectionBase } from '../../src/theme/classes';
+
+const careerWebPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Careers | MedocBills',
+  description:
+    'Join MedocBills\' team of healthcare billing experts. Explore career opportunities in medical billing, coding, and healthcare revenue cycle management.',
+  url: `${SITE_CONFIG.url}/career`,
+  inLanguage: 'en-US',
+};
 
 export default function CareerPage() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -40,7 +50,7 @@ export default function CareerPage() {
               className="mb-4 leading-tight"
             >
               Invest in your career,<br />
-              <span className="text-secondary">Grow</span> with tech's top talent.
+              <span className="text-secondary">Grow</span> with tech&apos;s top talent.
             </Typography>
 
             <Typography as="p" className="text-white/90 mt-4 max-w-2xl mx-auto">
@@ -72,7 +82,7 @@ export default function CareerPage() {
               </div>
 
               <Typography as="p" className="text-white/70 text-sm mt-2 text-left">
-                Try searching by job title or category (e.g., "Billing", "Management")
+                Try searching by job title or category (e.g., &quot;Billing&quot;, &quot;Management&quot;)
               </Typography>
             </div>
           </Container>
@@ -116,7 +126,7 @@ export default function CareerPage() {
               {filteredJobs.map((job) => (
                 <Link
                   key={job.id}
-                  href={`/careers/${job.id}`}
+                  href="/career"
                   role="listitem"
                   className="group block border-2 border-gray-200 rounded-lg p-6 cursor-pointer bg-white hover:scale-105 hover:bg-linear-to-br hover:from-primary-dark hover:to-primary-deep hover:border-primary hover:shadow-2xl transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                 >
@@ -242,6 +252,8 @@ export default function CareerPage() {
           </Container>
         </section>
       </section>
+      <JsonLd data={jobPostingSchema} />
+      <JsonLd data={careerWebPageSchema} />
     </>
   );
 }

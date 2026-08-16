@@ -1,10 +1,12 @@
 ﻿'use client';
 import Image from 'next/image';
 import { useState, useCallback, ChangeEvent, FormEvent } from 'react';
+import Link from 'next/link';
 import logo from '../assets/logo.webp';
 import { Container, Typography, CustomButton } from './layout';
 import { IconFromData } from '../helper/IconFromData';
 import { iconBtnBase } from '../theme/classes';
+import { SITE_CONFIG } from '../constants/seo';
 
 export default function Footer() {
   const [email, setEmail] = useState('');
@@ -49,16 +51,13 @@ export default function Footer() {
             </p>
 
             <div className="flex justify-center gap-3">
-              <a href="#" aria-label="Visit our Facebook page" className={iconBtnBase}>
-                {/* FIXED: Replaced Facebook with IconFromData */}
+              <a href={SITE_CONFIG.social.facebook} aria-label="Visit our Facebook page" className={iconBtnBase} target="_blank" rel="noopener noreferrer">
                 <IconFromData name="Facebook" size={18} />
               </a>
-              <a href="#" aria-label="Visit our LinkedIn page" className={iconBtnBase}>
-                {/* FIXED: Replaced Linkedin with IconFromData */}
+              <a href={SITE_CONFIG.social.linkedin} aria-label="Visit our LinkedIn page" className={iconBtnBase} target="_blank" rel="noopener noreferrer">
                 <IconFromData name="Linkedin" size={18} />
               </a>
-              <a href="#" aria-label="Visit our YouTube channel" className={iconBtnBase}>
-                {/* FIXED: Replaced Youtube with IconFromData */}
+              <a href={SITE_CONFIG.social.youtube} aria-label="Visit our YouTube channel" className={iconBtnBase} target="_blank" rel="noopener noreferrer">
                 <IconFromData name="Youtube" size={18} />
               </a>
             </div>
@@ -81,9 +80,9 @@ export default function Footer() {
                 'Emergency Rooms',
               ].map((item) => (
                 <li key={item}>
-                  <a href="#" className="hover:text-secondary transition">
+                  <Link href="/services" className="hover:text-secondary transition focus:outline-none focus:ring-1 focus:ring-secondary rounded px-1">
                     {item}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
 import Logo from '../assets/logo.webp';
 import { navItems } from '../constants/data';
+import { SITE_CONFIG } from '../constants/seo';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { CustomButton } from './layout/CustomButton';
@@ -49,9 +50,15 @@ const Navbar = () => {
         </div>
 
         <div className="hidden sm:flex gap-3">
-          <a href="#" aria-label="Instagram"><Icon name="Instagram" width={20} /></a>
-          <a href="#" aria-label="Facebook"><Icon name="Facebook" width={20} /></a>
-          <a href="#" aria-label="Twitter"><Icon name="Twitter" width={20} /></a>
+          <a href={SITE_CONFIG.social.facebook} aria-label="Facebook" className="flex items-center justify-center w-8 h-8 rounded-full text-white hover:text-secondary transition-colors" target="_blank" rel="noopener noreferrer">
+            <Icon name="Facebook" width={20} />
+          </a>
+          <a href={SITE_CONFIG.social.linkedin} aria-label="LinkedIn" className="flex items-center justify-center w-8 h-8 rounded-full text-white hover:text-secondary transition-colors" target="_blank" rel="noopener noreferrer">
+            <Icon name="Linkedin" width={20} />
+          </a>
+          <a href={SITE_CONFIG.social.twitter} aria-label="Twitter" className="flex items-center justify-center w-8 h-8 rounded-full text-white hover:text-secondary transition-colors" target="_blank" rel="noopener noreferrer">
+            <Icon name="Twitter" width={20} />
+          </a>
         </div>
       </nav>
 
