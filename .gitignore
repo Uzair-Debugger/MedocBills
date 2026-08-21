@@ -36,8 +36,11 @@ coverage
 # TypeScript cache
 *.tsbuildinfo
 
-# Local documentation (not tracked in git)
-MyLearnings.md
-NEXTJS_MIGRATION.md
-NEXTJS_MIGRATION_PHASE1.md
+# Ignore all Markdown files
+*.md
 
+# Except README.md
+!README.md
+
+
+/src/generated/prisma
