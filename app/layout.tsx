@@ -5,6 +5,7 @@ import Navbar from "../src/components/Navbar";
 import Footer from "../src/components/Footer";
 import JsonLd from "../src/components/JsonLd";
 import { SITE_CONFIG, organizationSchema, websiteSchema } from "../src/constants/seo";
+import Providers from "./providers";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -110,11 +111,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={poppins.variable}>
       <body className="min-h-screen bg-white text-black font-poppins">
-        <Navbar />
-        {children}
-        <Footer />
-        <JsonLd data={organizationSchema} />
-        <JsonLd data={websiteSchema} />
+        <Providers>
+          <Navbar />
+          {children}
+          <Footer />
+          <JsonLd data={organizationSchema} />
+          <JsonLd data={websiteSchema} />
+        </Providers>
       </body>
     </html>
   );

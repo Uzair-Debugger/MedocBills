@@ -10,11 +10,13 @@ import { usePathname } from 'next/navigation';
 import { CustomButton } from './layout/CustomButton';
 import { Icon } from '../utils/lazy-icons';
 import { mergeClass } from '../utils/classUtils';
+import { useSession, signOut } from 'next-auth/react';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
+  const { data: session, status } = useSession();
 
   // Close mobile menu on outside click
   useEffect(() => {
@@ -49,7 +51,7 @@ const Navbar = () => {
           </a>
         </div>
 
-        <div className="hidden sm:flex gap-3">
+        <div className="hidden sm:flex gap-3 items-center">
           <a href={SITE_CONFIG.social.facebook} aria-label="Facebook" className="flex items-center justify-center w-8 h-8 rounded-full text-white hover:text-secondary transition-colors" target="_blank" rel="noopener noreferrer">
             <Icon name="Facebook" width={20} />
           </a>
@@ -59,6 +61,32 @@ const Navbar = () => {
           <a href={SITE_CONFIG.social.twitter} aria-label="Twitter" className="flex items-center justify-center w-8 h-8 rounded-full text-white hover:text-secondary transition-colors" target="_blank" rel="noopener noreferrer">
             <Icon name="Twitter" width={20} />
           </a>
+
+          {status === "loading" && (
+            <span className="text-xs">Loading...</span>
+          )}
+
+          {status === "authenticated" && session?.user && (
+            <div className="flex items-center gap-3">
+              <span className="text-xs">
+                {(session.user as any).adminName || session.user.name}
+              </span>
+              <button
+                onClick={async () => {
+                  await signOut({ callbackUrl: "/" });
+                }}
+                className="text-xs hover:underline"
+              >
+                Sign Out
+              </button>
+            </div>
+          )}
+
+          {status === "unauthenticated" && (
+            <Link href="/api/auth/signin" className="text-xs hover:underline">
+              Admin Sign In
+            </Link>
+          )}
         </div>
       </nav>
 
@@ -154,4 +182,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
