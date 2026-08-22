@@ -1,27 +1,33 @@
 import "dotenv/config";
+import bcrypt from "bcryptjs"
 import { env } from "@/src/lib/env";
 import prisma from "../src/lib/prisma";
 
-async function main() {
-  await prisma.admin.upsert({
-    where: { email: env.ADMIN_EMAIL },
-    update: {},
-    create: {
-      name: env.ADMIN_NAME,
-      email: env.ADMIN_EMAIL,
-      password: env.ADMIN_PASSWORD,
-    }
-  })
+const SALTROUNDS = 10;
 
-  console.log("Admin Created");
+async function main() {
+
+  const password = "print(medocbills$$$)";
+  const hashPassword = await bcrypt.hash(password, SALTROUNDS)
+
+  await prisma.admin.create({
+    data: {
+      name: "Syed Muhammad Uzair",
+      email: "smuzair13cse@gmail.com",
+      password: hashPassword,
+    },
+  });
+  console.log("Admin created");
+
+  // await prisma.admin.delete({
+  //   where: {email: "smuzair13cse@gmail.com"},
+  // })
+
+  // console.log("Admin Deleted!")
+  await prisma.$disconnect();
 }
 
-main()
-  .then(async () => {
-    await prisma.$disconnect();
-  })
-  .catch(async (e) => {
-    console.error(e);
-    await prisma.$disconnect();
-    process.exit(1);
-  });
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

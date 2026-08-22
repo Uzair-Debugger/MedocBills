@@ -94,5 +94,13 @@ export const Icon = ({ name, size = 20, width, height, className }: IconProps) =
     console.warn(`Icon "${name}" not found`);
     return null;
   }
-  return <LucideIcon size={size} width={width} height={height} className={className} />;
+
+  return (
+    <LucideIcon
+      size={size}
+      {...(width !== undefined ? { width } : {})}
+      {...(height !== undefined ? { height } : {})}
+      className={className}
+    />
+  );
 };
