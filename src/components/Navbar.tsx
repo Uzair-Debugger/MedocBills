@@ -68,14 +68,17 @@ const Navbar = () => {
 
           {status === "authenticated" && session?.user && (
             <div className="flex items-center gap-3">
-              <span className="text-xs">
-                {(session.user as any).adminName || session.user.name}
-              </span>
+              <Link
+                href="/admin"
+                className="bg-secondary hover:bg-secondary-hover text-white px-3 py-2 rounded-md text-sm font-medium transition-colors"
+              >
+                Dashboard
+              </Link>
               <button
+                className="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer"
                 onClick={async () => {
                   await signOut({ callbackUrl: "/" });
                 }}
-                className="text-xs hover:underline"
               >
                 Sign Out
               </button>
@@ -138,10 +141,10 @@ const Navbar = () => {
           aria-label="Toggle menu"
           aria-expanded={menuOpen}
           aria-controls="mobile-menu"
-          className="min-[1150px]:hidden p-2"
+          className="flex min-[1150px]:hidden relative z-10 items-center justify-center rounded-md p-2 text-gray-900 hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
           onClick={() => setMenuOpen(!menuOpen)}
         >
-          {menuOpen ? <Icon name="X" size={32} /> : <Icon name="MenuIcon" size={32} />}
+          {menuOpen ? <Icon name="X" size={32} className="text-current" /> : <Icon name="MenuIcon" size={32} className="text-current" />}
         </button>
 
         {/* Mobile menu */}
@@ -172,9 +175,41 @@ const Navbar = () => {
 
           <Link href="/contactus">
             <CustomButton variant="primary" className="w-full flex justify-center items-center gap-2 px-4 py-2">
-              Free Consultation <Icon name="ArrowRight" />
+              Free Consultation <Icon name="ArrowRight" size={16} />
             </CustomButton>
           </Link>
+
+          <div className="flex flex-col gap-3 border-t border-gray-200 p-4">
+            {status === "authenticated" && session?.user ? (
+              <>
+                <Link
+                  href="/admin"
+                  onClick={() => setMenuOpen(false)}
+                  className="rounded-md bg-secondary px-3 py-2 text-center text-sm font-medium text-white transition-colors hover:bg-secondary-hover"
+                >
+                  Dashboard
+                </Link>
+                <button
+                  type="button"
+                  className="rounded-md bg-red-500 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-red-600"
+                  onClick={async () => {
+                    setMenuOpen(false);
+                    await signOut({ callbackUrl: "/" });
+                  }}
+                >
+                  Sign Out
+                </button>
+              </>
+            ) : status === "unauthenticated" ? (
+              <Link
+                href="/api/auth/signin"
+                onClick={() => setMenuOpen(false)}
+                className="text-center text-sm font-medium text-gray-800 transition-colors hover:text-primary"
+              >
+                Admin Sign In
+              </Link>
+            ) : null}
+          </div>
         </div>
       </nav>
     </header>

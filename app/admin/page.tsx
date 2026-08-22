@@ -16,11 +16,6 @@ export default async function AdminPage() {
           <h1 className="text-3xl font-bold text-gray-900">
             Admin Dashboard
           </h1>
-
-          <p className="mt-2 text-gray-600">
-            Welcome back,{" "}
-            {(session.user as any).adminName || session.user.name}
-          </p>
         </div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
