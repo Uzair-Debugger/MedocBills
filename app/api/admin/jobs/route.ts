@@ -62,8 +62,12 @@ export async function POST(request: Request) {
 }
 
 export async function GET() {
+  const session = await getServerSession(authOptions);
+  const adminId = session?.user?.adminId;
   const jobs = await prisma.job_post.findMany({
-    where: { status: JobStatus.OPEN },
+    where: typeof adminId === 'number' && Number.isInteger(adminId) && adminId > 0
+      ? { admin_id: adminId }
+      : { status: JobStatus.OPEN },
     orderBy: { created_at: 'desc' },
   });
 

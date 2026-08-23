@@ -94,7 +94,7 @@ export default function CareerPage() {
             </Typography>
             <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3" role="list" aria-label="Available job positions">
               {filteredJobs.map(job => (
-                <article key={job.id} role="listitem" tabIndex={0} onClick={() => router.push(`/career/${job.id}`)} onKeyDown={event => {
+                <article id={`job-${job.id}`} key={job.id} role="listitem" tabIndex={0} onClick={() => router.push(`/career/${job.id}`)} onKeyDown={event => {
                   if (event.key === 'Enter' || event.key === ' ') {
                     event.preventDefault();
                     router.push(`/career/${job.id}`);
