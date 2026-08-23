@@ -2,12 +2,17 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { RefreshCcwIcon } from 'lucide-react';
+import { toast } from 'react-toastify';
 import type { ApplicationRecord } from '@/src/types/types';
+import type { ApplicationStatus } from '@/src/types/types';
+
+const applicationStatuses: ApplicationStatus[] = ['PENDING', 'REVIEWING', 'INTERVIEW', 'SELECTED', 'NOT_SELECTED', 'WITHDRAWN', 'ACCEPTED', 'REJECTED'];
 
 export default function ApplicationsPage() {
   const [applications, setApplications] = useState<ApplicationRecord[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
+  const [savingId, setSavingId] = useState<number | null>(null);
 
   const loadApplications = useCallback(async () => {
     setIsLoading(true);
@@ -23,6 +28,25 @@ export default function ApplicationsPage() {
       setIsLoading(false);
     }
   }, []);
+
+  async function updateStatus(applicationId: number, status: ApplicationStatus) {
+    setSavingId(applicationId);
+    try {
+      const response = await fetch(`/api/admin/applications?id=${applicationId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status }),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Unable to update application status.');
+      setApplications(current => current.map(application => application.id === applicationId ? { ...application, status } : application));
+      toast.success('Application status updated.');
+    } catch (updateError) {
+      toast.error(updateError instanceof Error ? updateError.message : 'Unable to update application status.');
+    } finally {
+      setSavingId(null);
+    }
+  }
 
   useEffect(() => {
     async function loadInitialApplications() {
@@ -55,7 +79,7 @@ export default function ApplicationsPage() {
                 <td className="px-5 py-5 text-gray-700">{application.job_post.title}</td>
                 <td className="px-5 py-5"><a href={`mailto:${application.applicant_email}`} className="text-secondary hover:underline">{application.applicant_email}</a><p className="mt-1 text-gray-600">{application.applicant_phone}</p></td>
                 <td className="space-y-2 px-5 py-5"><a href={application.resume_url} target="_blank" rel="noreferrer" className="block font-semibold text-secondary hover:underline">View resume</a>{application.coverletter_url && <a href={application.coverletter_url} target="_blank" rel="noreferrer" className="block font-semibold text-secondary hover:underline">View cover letter</a>}</td>
-                <td className="px-5 py-5"><span className="rounded-full bg-amber-50 px-3 py-1 text-xs font-bold text-amber-700">{application.status}</span></td>
+                <td className="px-5 py-5"><label className="sr-only" htmlFor={`status-${application.id}`}>Status for {application.applicant_name}</label><select id={`status-${application.id}`} value={application.status} disabled={savingId === application.id} onChange={event => void updateStatus(application.id, event.target.value as ApplicationStatus)} className="rounded-md border border-gray-200 bg-white px-3 py-2 text-xs font-semibold text-gray-700 outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20">{applicationStatuses.map(status => <option key={status} value={status}>{status.replace('_', ' ')}</option>)}</select></td>
               </tr>)}</tbody>
             </table>
           </div>

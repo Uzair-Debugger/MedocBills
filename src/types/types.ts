@@ -13,7 +13,7 @@ export type jobSchema = {
 
 export type ApplicationJob = Pick<jobSchema, 'id' | 'title'>;
 
-export type ApplicationStatus = 'PENDING' | 'REVIEWING' | 'INTERVIEW' | 'ACCEPTED' | 'REJECTED';
+export type ApplicationStatus = 'PENDING' | 'REVIEWING' | 'INTERVIEW' | 'SELECTED' | 'NOT_SELECTED' | 'WITHDRAWN' | 'ACCEPTED' | 'REJECTED';
 
 export type ApplicationRecord = {
     id: number;
