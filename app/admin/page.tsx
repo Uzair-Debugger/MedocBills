@@ -5,8 +5,6 @@ import Link from "next/link";
 export default async function AdminPage() {
 
   const session = await getServerSession(authOptions);
-  console.log("Admin session:", session);
-
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
@@ -25,7 +23,7 @@ export default async function AdminPage() {
           </Link>
 
           <Link
-            href="/applications"
+            href="/admin/applications"
             className="group rounded-lg bg-white p-6 shadow cursor-pointer hover:scale-105 transition-transform duration-200 ease-in-out">
             <h2 className="group-hover:text-secondary-accent mb-2 text-xl font-semibold">Applications</h2>
             <p className="text-gray-600">Review candidate applications</p>

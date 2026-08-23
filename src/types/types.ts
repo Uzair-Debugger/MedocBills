@@ -12,3 +12,17 @@ export type jobSchema = {
 };
 
 export type ApplicationJob = Pick<jobSchema, 'id' | 'title'>;
+
+export type ApplicationStatus = 'PENDING' | 'REVIEWING' | 'INTERVIEW' | 'ACCEPTED' | 'REJECTED';
+
+export type ApplicationRecord = {
+    id: number;
+    applicant_name: string;
+    applicant_email: string;
+    applicant_phone: string;
+    resume_url: string;
+    coverletter_url: string | null;
+    status: ApplicationStatus;
+    created_at: string;
+    job_post: Pick<jobSchema, 'id' | 'title'>;
+};
