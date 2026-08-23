@@ -10,3 +10,5 @@ export type jobSchema = {
     status: JobStatus;
     created_at: string;
 };
+
+export type ApplicationJob = Pick<jobSchema, 'id' | 'title'>;
