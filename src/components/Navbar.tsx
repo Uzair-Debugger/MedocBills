@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
+import { toast } from 'react-toastify';
 import Logo from '../assets/logo.webp';
 import { navItems } from '../constants/data';
 import { SITE_CONFIG } from '../constants/seo';
@@ -78,6 +79,9 @@ const Navbar = () => {
                 className="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer"
                 onClick={async () => {
                   await signOut({ callbackUrl: "/" });
+                  toast.success('You have been signed out successfully.', {
+                    className: 'bg-green-50 text-green-700 border-green-200',
+                  });
                 }}
               >
                 Sign Out
@@ -195,6 +199,9 @@ const Navbar = () => {
                   onClick={async () => {
                     setMenuOpen(false);
                     await signOut({ callbackUrl: "/" });
+                    toast.success('You have been signed out successfully.', {
+                      className: 'bg-green-50 text-green-700 border-green-200',
+                    });
                   }}
                 >
                   Sign Out

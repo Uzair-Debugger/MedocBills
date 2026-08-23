@@ -1,6 +1,7 @@
 'use client';
 
 import { FormEvent, useState } from 'react';
+import { toast } from 'react-toastify';
 import { CustomButton } from '@/src/components/layout';
 
 interface JobPostProps {
@@ -13,12 +14,10 @@ const inputClassName =
 
 export default function JobPost({ onClose, onCreated }: JobPostProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState('');
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsSubmitting(true);
-    setError('');
 
     const formData = new FormData(event.currentTarget);
     const payload = Object.fromEntries(formData.entries());
@@ -35,13 +34,15 @@ export default function JobPost({ onClose, onCreated }: JobPostProps) {
         throw new Error(result.error || 'Unable to create this job post.');
       }
 
+      toast.success('Job post created successfully.', {
+        className: 'bg-green-50 text-green-700 border-green-200',
+      });
       onCreated();
     } catch (submitError) {
-      setError(
-        submitError instanceof Error
-          ? submitError.message
-          : 'Unable to create this job post.'
-      );
+      const message = submitError instanceof Error ? submitError.message : 'Unable to create this job post.';
+      toast.error(message, {
+        className: 'bg-red-50 text-red-700 border-red-200',
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -115,12 +116,6 @@ export default function JobPost({ onClose, onCreated }: JobPostProps) {
               placeholder="Describe the responsibilities, requirements, and what makes this opportunity worthwhile."
             />
           </label>
-
-          {error && (
-            <p role="alert" className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">
-              {error}
-            </p>
-          )}
 
           <div className="flex flex-col-reverse gap-3 border-t border-gray-100 pt-5 sm:flex-row sm:justify-end">
             <CustomButton type="button" variant="outline" onClick={onClose}>

@@ -1,6 +1,7 @@
 'use client';
 
 import { FormEvent, useState } from 'react';
+import { toast } from 'react-toastify';
 import type { ApplicationJob } from '@/src/types/types';
 
 interface ApplicationFormProps {
@@ -13,15 +14,11 @@ const inputClassName =
 
 export default function ApplicationForm({ job, onClose }: ApplicationFormProps) {
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [message, setMessage] = useState('');
-    const [error, setError] = useState('');
 
     async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         const form = event.currentTarget;
         setIsSubmitting(true);
-        setMessage('');
-        setError('');
 
         try {
             const response = await fetch('/api/applications', {
@@ -34,13 +31,18 @@ export default function ApplicationForm({ job, onClose }: ApplicationFormProps) 
                 throw new Error(result.error || 'Unable to submit your application.');
             }
 
-            setMessage('Your application was submitted successfully.');
+            toast.success('Your application was submitted successfully.', {
+              className: 'bg-green-50 text-green-700 border-green-200',
+            });
             form.reset();
+            onClose();
         } catch (submitError) {
-            setError(submitError instanceof Error ? submitError.message : 'Unable to submit your application.');
+            const message = submitError instanceof Error ? submitError.message : 'Unable to submit your application.';
+            toast.error(message, {
+              className: 'bg-red-50 text-red-700 border-red-200',
+            });
         } finally {
             setIsSubmitting(false);
-            onClose();
         }
     }
 
@@ -84,9 +86,6 @@ export default function ApplicationForm({ job, onClose }: ApplicationFormProps) 
                         Cover letter (optional, max 5 MB)
                         <input name="coverLetter" type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" className={`${inputClassName} file:mr-3 file:rounded file:border-0 file:bg-secondary file:px-3 file:py-2 file:text-sm file:font-semibold file:text-white`} />
                     </label>
-
-                    {error && <p role="alert" className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p>}
-                    {message && <p role="status" className="rounded-lg bg-green-50 px-4 py-3 text-sm text-green-700">{message}</p>}
 
                     <div className="flex flex-col-reverse gap-3 border-t border-gray-100 pt-5 sm:flex-row sm:justify-end">
                         <button type="button" onClick={onClose} className="rounded-lg border border-gray-200 px-5 py-3 text-sm font-semibold text-gray-700 hover:bg-gray-50">Cancel</button>
