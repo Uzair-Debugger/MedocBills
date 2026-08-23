@@ -1,13 +1,13 @@
 ﻿'use client';
 
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import Link from 'next/link';
-import { jobs } from '../../src/constants/data';
 import { SITE_CONFIG, jobPostingSchema } from '../../src/constants/seo';
 import JsonLd from '../../src/components/JsonLd';
 import { Container, Typography } from '../../src/components/layout';
 import { IconFromData } from '../../src/helper/IconFromData';
 import { sectionBase } from '../../src/theme/classes';
+import { jobSchema } from '@/src/types/types';
 
 const careerWebPageSchema = {
   '@context': 'https://schema.org',
@@ -19,15 +19,52 @@ const careerWebPageSchema = {
   inLanguage: 'en-US',
 };
 
+const getJobs = async () => {
+  try {
+    const response = await fetch('/api/admin/jobs');
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch jobs');
+    }
+
+    const data = await response.json();
+
+    console.log('API response:', data);
+    console.log('Jobs from API:', data.jobs);
+
+    return data.jobs || [];
+  } catch (error) {
+    console.error('Error fetching jobs:', error);
+    return [];
+  }
+};
+
 export default function CareerPage() {
   const [searchTerm, setSearchTerm] = useState('');
+  const [jobs, setJobs] = useState<jobSchema[]>([]);
+
+  useEffect(() => {
+    const getAllJobs = async () => {
+      const jobsData = await getJobs();
+
+      console.log('jobsData:', jobsData);
+
+      setJobs(jobsData);
+    };
+
+    getAllJobs();
+  }, []);
+
+  useEffect(() => {
+    console.log('jobs state updated:', jobs);
+  }, [jobs]);
 
   const filteredJobs = useMemo(() => {
     return jobs.filter(job =>
       job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      job.category.toLowerCase().includes(searchTerm.toLowerCase())
+      job.company_name.toLowerCase().includes(searchTerm.toLowerCase())
     );
-  }, [searchTerm]);
+  }, [jobs, searchTerm]);
 
   const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
@@ -145,7 +182,7 @@ export default function CareerPage() {
                       size="sm"
                       className="inline-block bg-secondary/10 text-secondary group-hover:bg-white/20 group-hover:text-white px-3 py-1 rounded-full transition-colors duration-300"
                     >
-                      {job.category}
+                      {job.company_name}
                     </Typography>
                   </div>
 
@@ -163,7 +200,7 @@ export default function CareerPage() {
                         size="sm"
                         className="text-gray-700 group-hover:text-gray-200"
                       >
-                        Last Date:
+                        Status:
                       </Typography>
 
                       <Typography
@@ -171,9 +208,9 @@ export default function CareerPage() {
                         size="sm"
                         weight="semibold"
                         className="text-red-600 group-hover:text-red-300"
-                        aria-label={`Application deadline: ${job.lastDate}`}
+                        aria-label={`Job status: ${job.status}`}
                       >
-                        {job.lastDate}
+                        {job.status}
                       </Typography>
                     </div>
                   </div>

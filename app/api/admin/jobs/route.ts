@@ -60,3 +60,12 @@ export async function POST(request: Request) {
 
   return Response.json({ jobPost }, { status: 201 });
 }
+
+export async function GET() {
+  const jobs = await prisma.job_post.findMany({
+    where: { status: JobStatus.OPEN },
+    orderBy: { created_at: 'desc' },
+  });
+
+  return Response.json({ jobs });
+}
