@@ -40,7 +40,7 @@ export default async function JobDetailsPage({ params }: JobDetailsPageProps) {
             <section id="apply" className="mx-auto mt-8 max-w-4xl rounded-2xl bg-white p-8 shadow-sm sm:p-12">
                 <Typography as="h2" variant="h3" weight="bold" className="text-gray-900">Apply for {job.title}</Typography>
                 <p className="mt-2 text-gray-600">Submit your details and CV to our hiring team.</p>
-                <div className="mt-6"><ApplicationForm job={{ id: job.id, title: job.title }} onClose={() => undefined} inline /></div>
+                <div className="mt-6"><ApplicationForm job={{ id: job.id, title: job.title }} inline /></div>
             </section>
         </main>
     );

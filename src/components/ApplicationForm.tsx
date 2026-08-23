@@ -6,7 +6,7 @@ import type { ApplicationJob } from '@/src/types/types';
 
 interface ApplicationFormProps {
     job: ApplicationJob;
-    onClose: () => void;
+    onClose?: () => void;
     inline?: boolean;
 }
 
@@ -36,7 +36,7 @@ export default function ApplicationForm({ job, onClose, inline = false }: Applic
                 className: 'bg-green-50 text-green-700 border-green-200',
             });
             form.reset();
-            onClose();
+            onClose?.();
         } catch (submitError) {
             const message = submitError instanceof Error ? submitError.message : 'Unable to submit your application.';
             toast.error(message, {
@@ -56,7 +56,7 @@ export default function ApplicationForm({ job, onClose, inline = false }: Applic
                         <h2 className="mt-1 text-2xl font-bold text-gray-900">{job.title}</h2>
                         <p className="mt-1 text-sm text-gray-500">Share your details and CV with our hiring team.</p>
                     </div>
-                    {!inline && <button type="button" onClick={onClose} aria-label="Close application form" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-2xl leading-none text-gray-400 transition hover:bg-gray-100 hover:text-gray-700">&times;</button>}
+                    {!inline && <button type="button" onClick={() => onClose?.()} aria-label="Close application form" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-2xl leading-none text-gray-400 transition hover:bg-gray-100 hover:text-gray-700">&times;</button>}
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-5 px-6 py-6 sm:px-8">
@@ -87,7 +87,7 @@ export default function ApplicationForm({ job, onClose, inline = false }: Applic
                     </label>
 
                     <div className="flex flex-col-reverse gap-3 border-t border-gray-100 pt-5 sm:flex-row sm:justify-end">
-                        {!inline && <button type="button" onClick={onClose} className="rounded-lg border border-gray-200 px-5 py-3 text-sm font-semibold text-gray-700 hover:bg-gray-50">Cancel</button>}
+                        {!inline && <button type="button" onClick={() => onClose?.()} className="rounded-lg border border-gray-200 px-5 py-3 text-sm font-semibold text-gray-700 hover:bg-gray-50">Cancel</button>}
                         <button type="submit" disabled={isSubmitting} className="rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-white hover:bg-primary-dark disabled:cursor-not-allowed disabled:opacity-60">
                             {isSubmitting ? 'Submitting...' : 'Submit application'}
                         </button>
