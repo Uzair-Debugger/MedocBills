@@ -1,6 +1,7 @@
 ﻿'use client';
 
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { SITE_CONFIG, jobPostingSchema } from '../../src/constants/seo';
 import JsonLd from '../../src/components/JsonLd';
 import { Container, CustomButton, Typography } from '../../src/components/layout';
@@ -40,6 +41,7 @@ const getJobs = async () => {
 };
 
 export default function CareerPage() {
+  const router = useRouter();
   const [searchTerm, setSearchTerm] = useState('');
   const [jobs, setJobs] = useState<jobSchema[]>([]);
   const [selectedJob, setSelectedJob] = useState<jobSchema | null>(null);
@@ -70,7 +72,7 @@ export default function CareerPage() {
         <section aria-labelledby="careers-heading" className="bg-linear-to-br from-primary-deep via-primary-dark to-primary px-6 py-24 text-white">
           <Container size="md" className="text-center">
             <Typography as="h1" id="careers-heading" variant="h1" weight="bold" color="inherit" className="mb-4 leading-tight">
-              Invest in your career,<br /><span className="text-secondary">Grow</span> with tech's top talent.
+              Invest in your career,<br /><span className="text-secondary">Grow</span> with tech&apos;s top talent.
             </Typography>
             <Typography as="p" className="mx-auto mt-4 max-w-2xl text-white/90">
               Join our team of healthcare billing experts and help us revolutionize revenue cycle management.
@@ -92,14 +94,19 @@ export default function CareerPage() {
             </Typography>
             <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3" role="list" aria-label="Available job positions">
               {filteredJobs.map(job => (
-                <article key={job.id} role="listitem" className="group rounded-lg border-2 border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-primary hover:shadow-lg">
+                <article key={job.id} role="listitem" tabIndex={0} onClick={() => router.push(`/career/${job.id}`)} onKeyDown={event => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    router.push(`/career/${job.id}`);
+                  }
+                }} className="group cursor-pointer rounded-lg border-2 border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-primary hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
                   <Typography as="h2" variant="h5" weight="bold" className="mb-2 text-gray-900">{job.title}</Typography>
                   <Typography as="p" size="sm" className="mb-4 text-secondary">{job.company_name}</Typography>
                   <div className="space-y-2 text-sm text-gray-700">
                     <p className="flex items-start gap-2"><IconFromData name="MapPin" className="mt-0.5 h-4 w-4 shrink-0" size={16} />{job.location}</p>
                     <p className="flex items-center gap-2"><IconFromData name="Calendar" className="h-4 w-4 shrink-0" size={16} />Status: <strong>{job.status}</strong></p>
                   </div>
-                  <CustomButton type="button" onClick={() => setSelectedJob(job)} className="mt-6 bg-white hover:bg-white border-t border-gray-100 pt-4 text-sm font-semibold text-primary hover:text-primary-dark">
+                  <CustomButton type="button" onClick={event => { event.stopPropagation(); setSelectedJob(job); }} className="mt-6 bg-white hover:bg-white border-t border-gray-100 pt-4 text-sm font-semibold text-primary hover:text-primary-dark">
                     Apply Now
                   </CustomButton>
                 </article>
