@@ -1,14 +1,10 @@
-import { getServerSession } from "next-auth";
 import { authOptions } from "@/src/lib/auth";
-import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
+import Link from "next/link";
 
 export default async function AdminPage() {
+
   const session = await getServerSession(authOptions);
-
-  if (!session?.user) {
-    redirect("/");
-  }
-
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
@@ -19,20 +15,26 @@ export default async function AdminPage() {
         </div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          <div className="rounded-lg bg-white p-6 shadow">
-            <h2 className="mb-2 text-xl font-semibold">Job Posts</h2>
+          <Link
+            href="/admin/jobs"
+            className="group rounded-lg bg-white p-6 shadow cursor-pointer hover:scale-105 transition-transform duration-200 ease-in-out">
+            <h2 className="group-hover:text-secondary-accent mb-2 text-xl font-semibold">Job Posts</h2>
             <p className="text-gray-600">Manage your job listings</p>
-          </div>
+          </Link>
 
-          <div className="rounded-lg bg-white p-6 shadow">
-            <h2 className="mb-2 text-xl font-semibold">Applications</h2>
+          <Link
+            href="/admin/applications"
+            className="group rounded-lg bg-white p-6 shadow cursor-pointer hover:scale-105 transition-transform duration-200 ease-in-out">
+            <h2 className="group-hover:text-secondary-accent mb-2 text-xl font-semibold">Applications</h2>
             <p className="text-gray-600">Review candidate applications</p>
-          </div>
+          </Link>
 
-          <div className="rounded-lg bg-white p-6 shadow">
-            <h2 className="mb-2 text-xl font-semibold">Settings</h2>
+          <Link
+            href="/admin/settings"
+            className="group rounded-lg bg-white p-6 shadow cursor-pointer hover:scale-105 transition-transform duration-200 ease-in-out">
+            <h2 className="group-hover:text-secondary-accent mb-2 text-xl font-semibold">Settings</h2>
             <p className="text-gray-600">Account settings</p>
-          </div>
+          </Link>
         </div>
       </div>
     </div>

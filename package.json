@@ -10,6 +10,7 @@
         "postinstall": "prisma generate"
     },
     "dependencies": {
+        "@aws-sdk/client-s3": "^3.1116.0",
         "@prisma/adapter-pg": "^7.9.1",
         "@prisma/client": "^7.9.1",
         "@tailwindcss/postcss": "^4.3.3",
@@ -24,7 +25,8 @@
         "react": "^19.2.8",
         "react-dom": "^19.2.8",
         "react-toastify": "^11.0.5",
-        "tailwind-merge": "^3.5.0"
+        "tailwind-merge": "^3.5.0",
+        "zod": "^4.4.3"
     },
     "devDependencies": {
         "@next/bundle-analyzer": "^16.3.1",

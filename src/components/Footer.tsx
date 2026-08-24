@@ -1,6 +1,7 @@
 ﻿'use client';
 import Image from 'next/image';
 import { useState, useCallback, ChangeEvent, FormEvent } from 'react';
+import { toast } from 'react-toastify';
 import Link from 'next/link';
 import logo from '../assets/logo.webp';
 import { Container, Typography, CustomButton } from './layout';
@@ -16,11 +17,15 @@ export default function Footer() {
     e.preventDefault();
 
     if (!email || !message) {
-      alert('Please fill in all fields');
+      toast.error('Please fill in all fields', {
+        className: 'bg-red-50 text-red-700 border-red-200',
+      });
       return;
     }
 
-    alert('Message sent successfully!');
+    toast.success('Message sent successfully!', {
+      className: 'bg-green-50 text-green-700 border-green-200',
+    });
     setEmail('');
     setMessage('');
   }, [email, message]);

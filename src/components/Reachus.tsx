@@ -1,4 +1,5 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
+import { toast } from 'react-toastify';
 import { CustomButton, Typography } from './layout';
 import { RequestFormData } from '../constants/schema';
 import { services_reachus, states } from '../constants/data';
@@ -26,12 +27,16 @@ const RequestCallBackForm = () => {
     const requiredFields = ['name', 'email', 'phone', 'message'];
     for (const field of requiredFields) {
       if (!formData[field as keyof RequestFormData]) {
-        alert('Please fill in all required fields.');
+        toast.error('Please fill in all required fields.', {
+          className: 'bg-red-50 text-red-700 border-red-200',
+        });
         return;
       }
     }
 
-    alert('Message sent successfully!');
+    toast.success('Message sent successfully!', {
+      className: 'bg-green-50 text-green-700 border-green-200',
+    });
     setFormData({
       name: '',
       email: '',

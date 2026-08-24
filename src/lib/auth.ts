@@ -44,6 +44,9 @@ export const authOptions: NextAuthOptions = {
           id: String(admin.id),
           name: admin.name,
           email: admin.email,
+          adminId: admin.id,
+          adminName: admin.name,
+          adminEmail: admin.email,
         }
       }
     })
@@ -76,8 +79,9 @@ export const authOptions: NextAuthOptions = {
           return false;
         }
 
-        (user as any).adminId = admin.id;
-        (user as any).adminName = admin.name;
+        user.adminId = admin.id;
+        user.adminName = admin.name;
+        user.adminEmail = admin.email;
       }
 
       return true;
@@ -85,9 +89,9 @@ export const authOptions: NextAuthOptions = {
 
     async jwt({ token, user }) {
       if (user) {
-        token.adminId = (user as any).adminId;
-        token.adminName = (user as any).adminName;
-        token.adminEmail = user.email;
+        token.adminId = user.adminId;
+        token.adminName = user.adminName;
+        token.adminEmail = user.adminEmail;
       }
 
       return token;
@@ -95,9 +99,9 @@ export const authOptions: NextAuthOptions = {
 
     async session({ session, token }) {
       if (session.user) {
-        (session.user as any).adminId = token.adminId;
-        (session.user as any).adminName = token.adminName;
-        (session.user as any).adminEmail = token.adminEmail;
+        session.user.adminId = token.adminId;
+        session.user.adminName = token.adminName;
+        session.user.adminEmail = token.adminEmail;
       }
 
       return session;

@@ -1,9 +1,9 @@
 ﻿'use client';
 
 import React, { useState, useMemo, useCallback } from 'react';
+import { toast } from 'react-toastify';
 import ContactUsPic from '../../src/assets/Hero/contactus.webp';
 import { Container, Typography, CustomButton } from '../../src/components/layout';
-import { mergeClass } from '../../src/utils/classUtils';
 import { SITE_CONFIG, localBusinessSchema } from '../../src/constants/seo';
 import JsonLd from '../../src/components/JsonLd';
 
@@ -27,7 +27,6 @@ const ContactUs = () => {
         message: '',
     });
 
-    const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -38,20 +37,23 @@ const ContactUs = () => {
     const validateForm = useCallback(() => {
         const { firstName, lastName, email, phoneNo, message } = formData;
         if (!firstName.trim() || !lastName.trim() || !email.trim() || !phoneNo.trim() || !message.trim()) {
-            setSubmitStatus({ type: 'error', message: 'Please fill in all required fields.' });
-            setTimeout(() => setSubmitStatus(null), 5000);
+            toast.error('Please fill in all required fields.', {
+              className: 'bg-red-50 text-red-700 border-red-200',
+            });
             return false;
         }
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            setSubmitStatus({ type: 'error', message: 'Please enter a valid email address.' });
-            setTimeout(() => setSubmitStatus(null), 5000);
+            toast.error('Please enter a valid email address.', {
+              className: 'bg-red-50 text-red-700 border-red-200',
+            });
             return false;
         }
         const phoneRegex = /^[\d\s\-()+]{10,}$/;
         if (!phoneRegex.test(phoneNo)) {
-            setSubmitStatus({ type: 'error', message: 'Please enter a valid phone number.' });
-            setTimeout(() => setSubmitStatus(null), 5000);
+            toast.error('Please enter a valid phone number.', {
+              className: 'bg-red-50 text-red-700 border-red-200',
+            });
             return false;
         }
         return true;
@@ -65,7 +67,9 @@ const ContactUs = () => {
         setIsSubmitting(true);
         try {
             await new Promise(resolve => setTimeout(resolve, 1500));
-            setSubmitStatus({ type: 'success', message: 'Thank you! We will contact you shortly.' });
+            toast.success('Thank you! We will contact you shortly.', {
+              className: 'bg-green-50 text-green-700 border-green-200',
+            });
             setFormData({
                 firstName: '',
                 lastName: '',
@@ -74,10 +78,10 @@ const ContactUs = () => {
                 countryCode: 'USA',
                 message: ''
             });
-            setTimeout(() => setSubmitStatus(null), 5000);
-        } catch (error) {
-            setSubmitStatus({ type: 'error', message: 'Network error! Please try again.' });
-            setTimeout(() => setSubmitStatus(null), 5000);
+        } catch {
+            toast.error('Network error! Please try again.', {
+              className: 'bg-red-50 text-red-700 border-red-200',
+            });
         } finally {
             setIsSubmitting(false);
         }
@@ -132,7 +136,7 @@ const ContactUs = () => {
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
                                         strokeWidth={2}
-                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 002 2v10a2 2 0 002 2z"
                                     />
                                 </svg>
                             </div>
@@ -145,21 +149,6 @@ const ContactUs = () => {
                             Ready to optimize your medical billing? Contact our team of healthcare IT experts today.
                         </Typography>
                     </div>
-
-                    {submitStatus && (
-                        <Container
-                            className={mergeClass(
-                                'w-full mb-4 p-4 rounded-md transition-colors text-white',
-                                submitStatus.type === 'success' ? 'bg-green-500/90' : 'bg-red-500/90'
-                            )}
-                            role="alert"
-                            aria-live="polite"
-                        >
-                            <Typography as="p" size="base" weight="medium" align="center">
-                                {submitStatus.message}
-                            </Typography>
-                        </Container>
-                    )}
 
                     <Container className="w-full md:w-[600px] py-6 px-3">
                         <form
@@ -304,7 +293,7 @@ const ContactUs = () => {
                                                     info.icon === 'phone'
                                                         ? 'M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z'
                                                         : info.icon === 'mail'
-                                                            ? 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'
+                                                            ? 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 002 2v10a2 2 0 002 2z'
                                                             : 'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z'
                                                 }
                                             />

@@ -1,7 +1,8 @@
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "../generated/prisma/client";
+import { env } from "./env";
 
-const connectionString = process.env.DATABASE_URL;
+const connectionString = env.DATABASE_URL;
 
 if (!connectionString) {
   throw new Error("DATABASE_URL is not defined. Add it to your .env file.");
@@ -19,6 +20,6 @@ declare const globalThis: {
 const prisma = globalThis.prismaGlobal ?? PrismaClientSingleton();
 export default prisma;
 
-if (process.env.NODE_ENV !== "production") {
+if (env.NODE_ENV !== "production") {
   globalThis.prismaGlobal = prisma;
 }
