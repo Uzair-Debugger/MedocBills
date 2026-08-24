@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import prisma from '@/src/lib/prisma';
+import { env } from '@/src/lib/env';
 import { ApplicationStatus, JobStatus } from '@/src/generated/prisma/enums';
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
@@ -11,10 +12,10 @@ const ALLOWED_FILE_TYPES = new Set([
 ]);
 
 function getStorageClient() {
-  const endpoint = process.env.S3_ENDPOINT?.trim();
-  const accessKeyId = process.env.S3_ACCESS_KEY_ID?.trim();
-  const secretAccessKey = process.env.S3_SECRET_ACCESS_KEY?.trim();
-  const bucket = process.env.S3_BUCKET?.trim();
+  const endpoint = env.S3_ENDPOINT
+  const accessKeyId = env.S3_ACCESS_KEY_ID
+  const secretAccessKey = env.S3_SECRET_ACCESS_KEY
+  const bucket = env.S3_BUCKET
 
   if (!endpoint || !accessKeyId || !secretAccessKey || !bucket) {
     throw new Error('S3 bucket environment variables are not configured.');
@@ -53,7 +54,7 @@ async function uploadToBucket(file: File, folder: string) {
     ContentType: file.type,
   }));
 
-  const endpoint = process.env.S3_ENDPOINT!.replace(/\/$/, '');
+  const endpoint = env.S3_ENDPOINT!.replace(/\/$/, '');
   return `${endpoint}/${bucket}/${objectKey}`;
 }
 
