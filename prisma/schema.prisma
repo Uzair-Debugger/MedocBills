@@ -24,6 +24,12 @@ enum JobStatus {
   CLOSED
 }
 
+enum EmailStatus {
+  SENT
+  FAILED
+  SKIPPED
+}
+
 model admin {
   id       Int    @id @default(autoincrement())
   name     String
@@ -33,7 +39,8 @@ model admin {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  job_posts job_post[]
+  job_posts     job_post[]
+  email_history email_history[]
 }
 
 model job_post {
@@ -50,8 +57,9 @@ model job_post {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  admin        admin         @relation(fields: [admin_id], references: [id])
-  applications application[]
+  admin         admin           @relation(fields: [admin_id], references: [id])
+  applications  application[]
+  email_history email_history[]
 
   @@index([admin_id])
 }
@@ -70,7 +78,29 @@ model application {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  job_post job_post @relation(fields: [job_post_id], references: [id])
+  job_post      job_post        @relation(fields: [job_post_id], references: [id])
+  email_history email_history[]
 
   @@index([job_post_id])
+}
+
+model email_history {
+  id             Int         @id @default(autoincrement())
+  admin_id       Int?
+  application_id Int?
+  recipient      String
+  subject        String
+  template       String
+  status         EmailStatus
+  error_message  String?
+  sent_at        DateTime?
+  created_at     DateTime    @default(now())
+
+  admin       admin?       @relation(fields: [admin_id], references: [id], onDelete: SetNull)
+  application application? @relation(fields: [application_id], references: [id], onDelete: SetNull)
+  jobPost     job_post?    @relation(fields: [job_postId], references: [id])
+  job_postId  Int?
+
+  @@index([admin_id, created_at])
+  @@index([application_id, created_at])
 }
