@@ -18,6 +18,7 @@ const jobPostSchema = z.object({
     },
     z.number().finite().positive('Salary must be greater than zero.')
   ),
+  lastDate: z.preprocess((value) => value === '' ? null : value, z.coerce.date().nullable()),
   status: z.enum([JobStatus.DRAFT, JobStatus.OPEN, JobStatus.CLOSED]),
 });
 
@@ -44,7 +45,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const { title, description, location, companyName, salary, status } = parsedJob.data;
+  const { title, description, location, companyName, salary, lastDate, status } = parsedJob.data;
 
   const jobPost = await prisma.job_post.create({
     data: {
@@ -54,6 +55,7 @@ export async function POST(request: Request) {
       location,
       salary,
       company_name: companyName,
+      last_date: lastDate,
       status,
     },
   });

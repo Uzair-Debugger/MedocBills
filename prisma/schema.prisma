@@ -52,6 +52,7 @@ model job_post {
   location     String
   salary       Decimal   @db.Decimal(12, 2)
   company_name String
+  last_date    DateTime?
   status       JobStatus @default(OPEN)
 
   created_at DateTime @default(now())
