@@ -117,6 +117,7 @@ export default function RootLayout({
           <Footer />
           <JsonLd data={organizationSchema} />
           <JsonLd data={websiteSchema} />
+          <script src="https://ai-customer-support-agent-nine.vercel.app/chatbot.js" data-owner-id="usp_140281927985791494"></script>
         </Providers>
       </body>
     </html>
