@@ -1,4 +1,5 @@
 import type { NextAuthOptions } from "next-auth";
+import { getServerSession } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "@/src/lib/prisma";
@@ -108,3 +109,20 @@ export const authOptions: NextAuthOptions = {
     },
   },
 };
+
+export async function getCurrentAdmin() {
+  const session = await getServerSession(authOptions);
+  const adminId = session?.user?.adminId;
+  const sessionEmail = session?.user?.adminEmail?.trim().toLowerCase();
+
+  if (typeof adminId !== 'number' || !Number.isInteger(adminId) || adminId <= 0 || !sessionEmail) {
+    return null;
+  }
+
+  const admin = await prisma.admin.findUnique({
+    where: { id: adminId },
+    select: { id: true, name: true, email: true },
+  });
+
+  return admin && admin.email.trim().toLowerCase() === sessionEmail ? admin : null;
+}

@@ -1,5 +1,4 @@
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/src/lib/auth';
+import { getCurrentAdmin } from '@/src/lib/auth';
 import prisma from '@/src/lib/prisma';
 import { JobStatus } from '@/src/generated/prisma/enums';
 import { z } from 'zod';
@@ -15,9 +14,8 @@ const jobUpdateSchema = z.object({
 });
 
 async function getAdminId() {
-  const session = await getServerSession(authOptions);
-  const adminId = session?.user?.adminId;
-  return typeof adminId === 'number' && Number.isInteger(adminId) && adminId > 0 ? adminId : null;
+  const admin = await getCurrentAdmin();
+  return admin?.id ?? null;
 }
 
 export async function PATCH(request: Request, context: { params: Promise<{ id: string }> }) {

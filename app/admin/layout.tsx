@@ -1,12 +1,11 @@
 import React from "react"
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/src/lib/auth";
+import { getCurrentAdmin } from "@/src/lib/auth";
 import { redirect } from "next/navigation";
 
 const layout = async ({ children }: { children: React.ReactNode }) => {
-    const session = await getServerSession(authOptions);
+    const admin = await getCurrentAdmin();
 
-    if (!session) {
+    if (!admin) {
         redirect('/api/auth/signin')
     }
     return (
