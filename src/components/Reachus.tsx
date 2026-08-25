@@ -15,13 +15,14 @@ const RequestCallBackForm = () => {
     message: '',
     notRobot: false,
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type, checked } = e.target as HTMLInputElement;
     setFormData((prev) => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const requiredFields = ['name', 'email', 'phone', 'message'];
@@ -34,19 +35,22 @@ const RequestCallBackForm = () => {
       }
     }
 
-    toast.success('Message sent successfully!', {
-      className: 'bg-green-50 text-green-700 border-green-200',
-    });
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      service: '',
-      state: '',
-      date: '',
-      message: '',
-      notRobot: false,
-    });
+    setIsSubmitting(true);
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...formData, preferredDate: formData.date }),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || 'Unable to send your message.');
+      toast.success('Message sent successfully!', { className: 'bg-green-50 text-green-700 border-green-200' });
+      setFormData({ name: '', email: '', phone: '', service: '', state: '', date: '', message: '', notRobot: false });
+    } catch (submitError) {
+      toast.error(submitError instanceof Error ? submitError.message : 'Unable to send your message.', { className: 'bg-red-50 text-red-700 border-red-200' });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -183,9 +187,10 @@ const RequestCallBackForm = () => {
             <CustomButton
               type="submit"
               variant="outline"
+              disabled={isSubmitting}
               className="w-full text-brand-blue font-bold py-3 rounded-md hover:bg-gray-100"
             >
-              Submit Now
+              {isSubmitting ? 'Sending...' : 'Submit Now'}
             </CustomButton>
           </form>
         </div>

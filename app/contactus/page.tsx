@@ -66,7 +66,18 @@ const ContactUs = () => {
 
         setIsSubmitting(true);
         try {
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: `${formData.firstName} ${formData.lastName}`,
+                    email: formData.email,
+                    phone: `${formData.countryCode} ${formData.phoneNo}`,
+                    message: formData.message,
+                }),
+            });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.error || 'Unable to send your message.');
             toast.success('Thank you! We will contact you shortly.', {
               className: 'bg-green-50 text-green-700 border-green-200',
             });
@@ -78,8 +89,8 @@ const ContactUs = () => {
                 countryCode: 'USA',
                 message: ''
             });
-        } catch {
-            toast.error('Network error! Please try again.', {
+        } catch (submitError) {
+            toast.error(submitError instanceof Error ? submitError.message : 'Network error! Please try again.', {
               className: 'bg-red-50 text-red-700 border-red-200',
             });
         } finally {
