@@ -8,13 +8,13 @@ import { SITE_CONFIG, localBusinessSchema } from '../../src/constants/seo';
 import JsonLd from '../../src/components/JsonLd';
 
 const contactWebPageSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'WebPage',
-  name: 'Contact Us | MedocBills',
-  description:
-    'Contact MedocBills for professional medical billing services and healthcare revenue cycle management.',
-  url: `${SITE_CONFIG.url}/contactus`,
-  inLanguage: 'en-US',
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Contact Us | MedocBills',
+    description:
+        'Contact MedocBills for professional medical billing services and healthcare revenue cycle management.',
+    url: `${SITE_CONFIG.url}/contactus`,
+    inLanguage: 'en-US',
 };
 
 const ContactUs = () => {
@@ -38,21 +38,21 @@ const ContactUs = () => {
         const { firstName, lastName, email, phoneNo, message } = formData;
         if (!firstName.trim() || !lastName.trim() || !email.trim() || !phoneNo.trim() || !message.trim()) {
             toast.error('Please fill in all required fields.', {
-              className: 'bg-red-50 text-red-700 border-red-200',
+                className: 'bg-red-50 text-red-700 border-red-200',
             });
             return false;
         }
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             toast.error('Please enter a valid email address.', {
-              className: 'bg-red-50 text-red-700 border-red-200',
+                className: 'bg-red-50 text-red-700 border-red-200',
             });
             return false;
         }
         const phoneRegex = /^[\d\s\-()+]{10,}$/;
         if (!phoneRegex.test(phoneNo)) {
             toast.error('Please enter a valid phone number.', {
-              className: 'bg-red-50 text-red-700 border-red-200',
+                className: 'bg-red-50 text-red-700 border-red-200',
             });
             return false;
         }
@@ -79,7 +79,7 @@ const ContactUs = () => {
             const result = await response.json();
             if (!response.ok) throw new Error(result.error || 'Unable to send your message.');
             toast.success('Thank you! We will contact you shortly.', {
-              className: 'bg-green-50 text-green-700 border-green-200',
+                className: 'bg-green-50 text-green-700 border-green-200',
             });
             setFormData({
                 firstName: '',
@@ -91,7 +91,7 @@ const ContactUs = () => {
             });
         } catch (submitError) {
             toast.error(submitError instanceof Error ? submitError.message : 'Network error! Please try again.', {
-              className: 'bg-red-50 text-red-700 border-red-200',
+                className: 'bg-red-50 text-red-700 border-red-200',
             });
         } finally {
             setIsSubmitting(false);

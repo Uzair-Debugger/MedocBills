@@ -204,19 +204,19 @@ const RequestCallBackForm = () => {
           <div className="space-y-6 mb-8 text-lg">
             <p className="flex items-center gap-3">
               <span className="text-brand-blue text-2xl" aria-hidden="true">📞</span>
-               <span className="font-medium">(201) 371-3521</span>
-             </p>
-             <p className="flex items-center gap-3">
-               <span className="text-brand-blue text-2xl" aria-hidden="true">✉️</span>
-               <span className="font-medium">info@medocbills.com</span>
-             </p>
-             <p className="flex items-center gap-3">
-               <span className="text-brand-blue text-2xl" aria-hidden="true">📍</span>
-               <span className="font-medium">
-                 835 Wilshire Blvd, Ste 500 #513, Los Angeles, CA 90017
-               </span>
-             </p>
-           </div>
+              <span className="font-medium">(201) 371-3521</span>
+            </p>
+            <p className="flex items-center gap-3">
+              <span className="text-brand-blue text-2xl" aria-hidden="true">✉️</span>
+              <span className="font-medium">info@medocbills.com</span>
+            </p>
+            <p className="flex items-center gap-3">
+              <span className="text-brand-blue text-2xl" aria-hidden="true">📍</span>
+              <span className="font-medium">
+                835 Wilshire Blvd, Ste 500 #513, Los Angeles, CA 90017
+              </span>
+            </p>
+          </div>
 
           {/* Google Map - lazy loaded */}
           <div className="flex-1 min-h-96 rounded-lg overflow-hidden shadow-lg">
