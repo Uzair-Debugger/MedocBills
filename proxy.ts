@@ -11,7 +11,14 @@ export async function proxy(request: NextRequest) {
       secret: process.env.NEXTAUTH_SECRET,
     });
 
-    if (!token) {
+    if (
+      !token ||
+      typeof token.adminId !== "number" ||
+      !Number.isInteger(token.adminId) ||
+      token.adminId <= 0 ||
+      typeof token.adminEmail !== "string" ||
+      !token.adminEmail
+    ) {
       return NextResponse.redirect(new URL("/", request.url));
     }
   }

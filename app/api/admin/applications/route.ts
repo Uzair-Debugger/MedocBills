@@ -1,5 +1,4 @@
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/src/lib/auth';
+import { getCurrentAdmin } from '@/src/lib/auth';
 import prisma from '@/src/lib/prisma';
 import { ApplicationStatus } from '@/src/generated/prisma/enums';
 import { z } from 'zod';
@@ -19,15 +18,14 @@ const statusSchema = z.object({
 });
 
 export async function GET() {
-  const session = await getServerSession(authOptions);
-  const adminId = session?.user?.adminId;
+  const admin = await getCurrentAdmin();
 
-  if (typeof adminId !== 'number' || !Number.isInteger(adminId) || adminId <= 0) {
+  if (!admin) {
     return Response.json({ error: 'You must be signed in as an admin.' }, { status: 401 });
   }
 
   const applications = await prisma.application.findMany({
-    where: { job_post: { admin_id: adminId } },
+    where: { job_post: { admin_id: admin.id } },
     orderBy: { created_at: 'desc' },
     include: {
       job_post: { select: { id: true, title: true } },
@@ -38,10 +36,9 @@ export async function GET() {
 }
 
 export async function PATCH(request: Request) {
-  const session = await getServerSession(authOptions);
-  const adminId = session?.user?.adminId;
+  const admin = await getCurrentAdmin();
 
-  if (typeof adminId !== 'number' || !Number.isInteger(adminId) || adminId <= 0) {
+  if (!admin) {
     return Response.json({ error: 'You must be signed in as an admin.' }, { status: 401 });
   }
 
@@ -63,7 +60,7 @@ export async function PATCH(request: Request) {
   }
 
   const application = await prisma.application.findFirst({
-    where: { id: applicationId, job_post: { admin_id: adminId } },
+    where: { id: applicationId, job_post: { admin_id: admin.id } },
     include: { job_post: { select: { title: true, admin_id: true } } },
   });
 
@@ -77,7 +74,7 @@ export async function PATCH(request: Request) {
   });
 
   const email = applicationStatusEmail(application.applicant_name, application.job_post.title, parsed.data.status);
-  await sendEmail({ adminId, applicationId, recipient: application.applicant_email, ...email, template: 'application_status_updated' });
+  await sendEmail({ adminId: admin.id, applicationId, recipient: application.applicant_email, ...email, template: 'application_status_updated' });
 
   return Response.json({ applicationId, status: parsed.data.status });
 }

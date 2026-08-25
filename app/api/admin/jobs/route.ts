@@ -1,5 +1,4 @@
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/src/lib/auth';
+import { getCurrentAdmin } from '@/src/lib/auth';
 import prisma from '@/src/lib/prisma';
 import { JobStatus } from '@/src/generated/prisma/enums';
 import { z } from 'zod';
@@ -23,10 +22,9 @@ const jobPostSchema = z.object({
 });
 
 export async function POST(request: Request) {
-  const session = await getServerSession(authOptions);
-  const adminId = session?.user?.adminId;
+  const admin = await getCurrentAdmin();
 
-  if (typeof adminId !== 'number' || !Number.isInteger(adminId) || adminId <= 0) {
+  if (!admin) {
     return Response.json({ error: 'You must be signed in as an admin.' }, { status: 401 });
   }
 
@@ -49,7 +47,7 @@ export async function POST(request: Request) {
 
   const jobPost = await prisma.job_post.create({
     data: {
-      admin_id: adminId,
+      admin_id: admin.id,
       title,
       description,
       location,
@@ -64,12 +62,9 @@ export async function POST(request: Request) {
 }
 
 export async function GET() {
-  const session = await getServerSession(authOptions);
-  const adminId = session?.user?.adminId;
+  const admin = await getCurrentAdmin();
   const jobs = await prisma.job_post.findMany({
-    where: typeof adminId === 'number' && Number.isInteger(adminId) && adminId > 0
-      ? { admin_id: adminId }
-      : { status: JobStatus.OPEN },
+    where: admin ? { admin_id: admin.id } : { status: JobStatus.OPEN },
     orderBy: { created_at: 'desc' },
   });
 

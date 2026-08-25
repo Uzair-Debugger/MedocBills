@@ -1,5 +1,4 @@
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/src/lib/auth';
+import { getCurrentAdmin } from '@/src/lib/auth';
 import prisma from '@/src/lib/prisma';
 import { z } from 'zod';
 
@@ -8,21 +7,14 @@ const settingsSchema = z.object({
   email: z.string().trim().toLowerCase().email('Enter a valid email address.'),
 });
 
-async function currentAdmin() {
-  const session = await getServerSession(authOptions);
-  const adminId = session?.user?.adminId;
-  if (typeof adminId !== 'number' || !Number.isInteger(adminId) || adminId <= 0) return null;
-  return prisma.admin.findUnique({ where: { id: adminId }, select: { id: true, name: true, email: true } });
-}
-
 export async function GET() {
-  const admin = await currentAdmin();
+  const admin = await getCurrentAdmin();
   if (!admin) return Response.json({ error: 'You must be signed in as an admin.' }, { status: 401 });
   return Response.json({ admin });
 }
 
 export async function PATCH(request: Request) {
-  const admin = await currentAdmin();
+  const admin = await getCurrentAdmin();
   if (!admin) return Response.json({ error: 'You must be signed in as an admin.' }, { status: 401 });
   let body: unknown;
   try { body = await request.json(); } catch { return Response.json({ error: 'Invalid request body.' }, { status: 400 }); }
