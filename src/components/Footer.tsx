@@ -13,7 +13,9 @@ export default function Footer() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
 
-  const handleSubmit = useCallback((e: FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = useCallback(async (e: FormEvent) => {
     e.preventDefault();
 
     if (!email || !message) {
@@ -23,11 +25,23 @@ export default function Footer() {
       return;
     }
 
-    toast.success('Message sent successfully!', {
-      className: 'bg-green-50 text-green-700 border-green-200',
-    });
-    setEmail('');
-    setMessage('');
+    setIsSubmitting(true);
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: 'Footer inquiry', email, message }),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || 'Unable to send your message.');
+      toast.success('Message sent successfully!', { className: 'bg-green-50 text-green-700 border-green-200' });
+      setEmail('');
+      setMessage('');
+    } catch (submitError) {
+      toast.error(submitError instanceof Error ? submitError.message : 'Unable to send your message.', { className: 'bg-red-50 text-red-700 border-red-200' });
+    } finally {
+      setIsSubmitting(false);
+    }
   }, [email, message]);
 
   return (
@@ -132,8 +146,8 @@ export default function Footer() {
                 />
               </div>
 
-              <CustomButton type="submit" variant="secondary" className="w-full">
-                Send Message
+              <CustomButton type="submit" variant="secondary" className="w-full" disabled={isSubmitting}>
+                {isSubmitting ? 'Sending...' : 'Send Message'}
               </CustomButton>
             </form>
 
