@@ -16,10 +16,15 @@ function escapeHtml(value: string) {
 }
 
 export async function sendEmail(input: SendEmailInput) {
-  const { html, ...history } = input;
+  const { html, adminId, applicationId, ...history } = input;
+  const historyData = {
+    ...history,
+    admin_id: adminId,
+    application_id: applicationId,
+  };
   if (!env.RESEND_API_KEY || !env.EMAIL_FROM) {
     return prisma.email_history.create({
-      data: { ...history, status: EmailStatus.SKIPPED, error_message: 'Email provider is not configured.' },
+      data: { ...historyData, status: EmailStatus.SKIPPED, error_message: 'Email provider is not configured.' },
     });
   }
 
@@ -36,12 +41,12 @@ export async function sendEmail(input: SendEmailInput) {
     }
 
     return prisma.email_history.create({
-      data: { ...history, status: EmailStatus.SENT, sent_at: new Date() },
+      data: { ...historyData, status: EmailStatus.SENT, sent_at: new Date() },
     });
   } catch (error) {
     return prisma.email_history.create({
       data: {
-        ...history,
+        ...historyData,
         status: EmailStatus.FAILED,
         error_message: error instanceof Error ? error.message : 'Unknown email provider error.',
       },
