@@ -3,6 +3,7 @@ import { authOptions } from '@/src/lib/auth';
 import prisma from '@/src/lib/prisma';
 import { ApplicationStatus } from '@/src/generated/prisma/enums';
 import { z } from 'zod';
+import { applicationStatusEmail, sendEmail } from '@/src/lib/email';
 
 const statusSchema = z.object({
   status: z.enum([
@@ -61,14 +62,22 @@ export async function PATCH(request: Request) {
     return Response.json({ error: 'Please choose a valid application status.' }, { status: 400 });
   }
 
-  const result = await prisma.application.updateMany({
+  const application = await prisma.application.findFirst({
     where: { id: applicationId, job_post: { admin_id: adminId } },
+    include: { job_post: { select: { title: true, admin_id: true } } },
+  });
+
+  if (!application) {
+    return Response.json({ error: 'Application not found.' }, { status: 404 });
+  }
+
+  await prisma.application.update({
+    where: { id: applicationId },
     data: { status: parsed.data.status },
   });
 
-  if (result.count === 0) {
-    return Response.json({ error: 'Application not found.' }, { status: 404 });
-  }
+  const email = applicationStatusEmail(application.applicant_name, application.job_post.title, parsed.data.status);
+  await sendEmail({ adminId, applicationId, recipient: application.applicant_email, ...email, template: 'application_status_updated' });
 
   return Response.json({ applicationId, status: parsed.data.status });
 }

@@ -30,6 +30,13 @@ export default async function AdminPage() {
           </Link>
 
           <Link
+            href="/admin/email-history"
+            className="group cursor-pointer rounded-lg bg-white p-6 shadow transition-transform duration-200 ease-in-out hover:scale-105">
+            <h2 className="group-hover:text-secondary-accent mb-2 text-xl font-semibold">Email history</h2>
+            <p className="text-gray-600">Review notification delivery</p>
+          </Link>
+
+          <Link
             href="/admin/settings"
             className="group rounded-lg bg-white p-6 shadow cursor-pointer hover:scale-105 transition-transform duration-200 ease-in-out">
             <h2 className="group-hover:text-secondary-accent mb-2 text-xl font-semibold">Settings</h2>

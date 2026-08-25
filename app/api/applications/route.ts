@@ -3,6 +3,7 @@ import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import prisma from '@/src/lib/prisma';
 import { env } from '@/src/lib/env';
 import { ApplicationStatus, JobStatus } from '@/src/generated/prisma/enums';
+import { applicationReceivedEmail, sendEmail } from '@/src/lib/email';
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 const ALLOWED_FILE_TYPES = new Set([
@@ -78,7 +79,7 @@ export async function POST(request: Request) {
       return Response.json({ error: 'Invalid cover letter upload.' }, { status: 400 });
     }
 
-    const job = await prisma.job_post.findFirst({ where: { id: jobPostId, status: JobStatus.OPEN }, select: { id: true } });
+    const job = await prisma.job_post.findFirst({ where: { id: jobPostId, status: JobStatus.OPEN }, select: { id: true, title: true, admin_id: true } });
     if (!job) {
       return Response.json({ error: 'This job is no longer accepting applications.' }, { status: 404 });
     }
@@ -100,6 +101,9 @@ export async function POST(request: Request) {
       },
       select: { id: true },
     });
+
+    const email = applicationReceivedEmail(applicantName, job.title);
+    await sendEmail({ adminId: job.admin_id, applicationId: application.id, recipient: applicantEmail, ...email, template: 'application_received' });
 
     return Response.json({ applicationId: application.id }, { status: 201 });
   } catch (error) {

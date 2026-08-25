@@ -14,9 +14,22 @@ function statusClasses(status: JobStatus) {
 
 export default function JobsPage() {
     const [postNewJob, setPostNewJob] = useState(false);
+    const [editingJob, setEditingJob] = useState<jobSchema | null>(null);
     const [jobs, setJobs] = useState<jobSchema[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState('');
+
+    async function deleteJob(job: jobSchema) {
+        if (!window.confirm(`Delete ${job.title}?`)) return;
+        try {
+            const response = await fetch(`/api/admin/jobs/${job.id}`, { method: 'DELETE' });
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.error || 'Unable to delete job post.');
+            setJobs(current => current.filter(item => item.id !== job.id));
+        } catch (deleteError) {
+            setError(deleteError instanceof Error ? deleteError.message : 'Unable to delete job post.');
+        }
+    }
 
     const getJobs = useCallback(async () => {
         setIsLoading(true);
@@ -83,14 +96,14 @@ export default function JobsPage() {
                             <article key={job.id} className="group flex min-h-56 flex-col rounded-xl border border-gray-100 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-secondary/30 hover:shadow-lg">
                                 <div className="flex items-start justify-between gap-4">
                                     <span className={`rounded-full px-3 py-1 text-xs font-bold ${statusClasses(job.status)}`}>{job.status}</span>
-                                    <span className="text-xs text-gray-400">#{job.id}</span>
+                                    <div className="flex items-center gap-3"><button type="button" onClick={() => setEditingJob(job)} className="text-xs font-semibold text-secondary hover:underline">Edit</button><button type="button" onClick={() => void deleteJob(job)} className="text-xs font-semibold text-red-600 hover:underline">Delete</button><span className="text-xs text-gray-400">#{job.id}</span></div>
                                 </div>
                                 <h3 className="mt-5 text-xl font-bold text-gray-900 group-hover:text-primary">{job.title}</h3>
                                 <p className="mt-1 text-sm font-medium text-secondary">{job.company_name}</p>
                                 <p className="mt-4 line-clamp-2 text-sm leading-6 text-gray-500">{job.description}</p>
                                 <div className="mt-auto flex items-end justify-between gap-4 border-t border-gray-100 pt-5">
                                     <div><p className="text-xs uppercase tracking-wide text-gray-400">Salary</p><p className="mt-1 font-bold text-gray-900">${Number(job.salary).toLocaleString()}</p></div>
-                                    <div className="text-right"><p className="text-xs uppercase tracking-wide text-gray-400">Location</p><p className="mt-1 max-w-32 truncate text-sm text-gray-600">{job.location}</p></div>
+                                    <div className="text-right"><p className="text-xs uppercase tracking-wide text-gray-400">Deadline</p><p className="mt-1 text-sm text-gray-600">{job.last_date ? new Date(job.last_date).toLocaleDateString() : 'No deadline'}</p></div>
                                 </div>
                             </article>
                         ))}
@@ -106,6 +119,7 @@ export default function JobsPage() {
             </div>
 
             {postNewJob && <JobPost onClose={() => setPostNewJob(false)} onCreated={() => { setPostNewJob(false); void getJobs(); }} />}
+            {editingJob && <JobPost job={editingJob} onClose={() => setEditingJob(null)} onCreated={() => { setEditingJob(null); void getJobs(); }} />}
         </main>
     );
 }

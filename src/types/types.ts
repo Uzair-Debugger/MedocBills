@@ -7,6 +7,7 @@ export type jobSchema = {
     location: string;
     company_name: string;
     salary: number | string;
+    last_date: string | null;
     status: JobStatus;
     created_at: string;
 };
