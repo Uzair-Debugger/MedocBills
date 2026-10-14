@@ -43,7 +43,7 @@
   --color-maroon: #8B1538;
 }
 
-@theme {
+@theme inline {
   --color-primary: var(--color-primary);
   --color-primary-dark: var(--color-primary-dark);
   --color-secondary: var(--color-secondary);
