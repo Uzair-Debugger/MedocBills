@@ -7,7 +7,7 @@ interface TypographyProps<T extends ElementType> {
   size?: string;
   weight?: 'normal' | 'medium' | 'semibold' | 'bold';
   variant?: TypographyVariant;
-  color?: 'primary' | 'secondary' | 'white' | 'gray' | 'white/90' | string;
+  color?: 'primary' | 'secondary' | 'primary-dark' | 'white' | 'gray' | 'white/90' | string;
   align?: 'left' | 'center' | 'right';
   className?: string;
   children: ReactNode;
@@ -26,6 +26,7 @@ const variantClasses: Record<TypographyVariant, string> = {
 
 const colorMap: Record<NonNullable<TypographyProps<'div'>['color']> | 'white/90', string> = {
   primary: 'text-primary',
+  'primary-dark': 'text-primary-dark',
   secondary: 'text-secondary',
   white: 'text-white',
   'white/90': 'text-white/90',
